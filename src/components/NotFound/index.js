@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import logo from '../../assets/images/logo.png';
 
 export default class PageNotFound extends Component {
 
