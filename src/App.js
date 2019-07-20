@@ -6,10 +6,11 @@ import Homepage from './components/Homepage'
 import HomeNav from './components/HomeNav'
 
 function App() {
+
   return (
     <>
       <Router>
-        <HomeNav></HomeNav>
+        <HomeNav/>
         <Switch>
           <Route path="/" exact component={Homepage} />
           <Route component={NotFound} />
