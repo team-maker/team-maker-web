@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AuthenticationService } from './authentication.service'
+import { AuthenticationService } from './authentication'
 
 axios.defaults.timeout = 20000;
 axios.defaults.baseURL = process.env.REACT_APP_API_URL

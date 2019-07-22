@@ -1,0 +1,16 @@
+.btn {
+  font-size: 20px;
+  border-radius: 3px;
+
+  &.btn-primary {
+    background-color: $primary-color;
+    color: white;
+    padding: 5px 15px;
+    font-size: 20px;
+
+    &:hover {
+      opacity: .9;
+      text-decoration: none;
+    }
+  }
+}
