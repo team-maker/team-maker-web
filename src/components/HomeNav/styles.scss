@@ -1,0 +1,19 @@
+.home-nav {
+  background: #46555e;
+  .logo {
+    width: 190px;
+  }
+
+  .nav-button {
+    background: #0fa00f;
+    border-radius: 3px;
+    color: white;
+    font-size: 20px;
+    padding: 5px 15px;
+
+    &:hover {
+      opacity: .9;
+      text-decoration: none;
+    }
+  }
+}
