@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { Navbar, Nav, Button }  from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
-import LoginModal from '../LoginModal';
-
-import logo from '../../assets/images/logo.png';
 import './styles.scss';
+import LoginModal from '../LoginModal';
+import logo from '../../assets/images/logo.png';
 
 export default class HomeNav extends Component {
   state = {
