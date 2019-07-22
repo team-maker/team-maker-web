@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Modal, Button, Form }  from 'react-bootstrap';
 import { UserService } from '../../services';
 import logo from '../../assets/images/logo.png';
-import './loginModal.scss';
+import './styles.scss';
 
 
 export default class LoginModal extends Component {

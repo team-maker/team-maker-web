@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './homepage.scss';
+import './styles.scss';
 
 export default class Homepage extends Component {
 

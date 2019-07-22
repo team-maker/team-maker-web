@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import LoginModal from '../LoginModal';
 
 import logo from '../../assets/images/logo.png';
-import './homeNav.scss';
+import './styles.scss';
 
 export default class HomeNav extends Component {
   state = {
