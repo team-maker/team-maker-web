@@ -3,7 +3,7 @@ import axios from './interceptor';
 export const UserService = {
 
   doLogin(payload) {
-    const url ='/users/sign_in';
+    const url ='/api/auth/login/';
     return axios({
       method: 'post',
       url: url, 

@@ -10,10 +10,8 @@ export default class LoginModal extends Component {
   handleLogin(e) {
     e.preventDefault();
     const payload = { 
-      user: { 
-        username: e.target.email.value,
-        password: e.target.password.value 
-      }
+      username: e.target.email.value,
+      password: e.target.password.value 
     };
     UserService.doLogin(payload).then((response) => {
       const user = response.data
@@ -23,6 +21,7 @@ export default class LoginModal extends Component {
         localStorage.setItem('jwt', response.headers.authorization);
         this.props.saveLogIn(localStorage.getItem('jwt'));
       }
+      alert("LOGADO!!! O DIGUITO É NOOB");
       // this.props.history.push(`/`)
     })
     .catch((error) => {
