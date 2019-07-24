@@ -6,15 +6,23 @@ import LoginModal from '../LoginModal';
 import logo from '../../assets/images/logo.png';
 
 export default class HomeNav extends Component {
-  state = {
-    showLogin: false
+  constructor(props){
+    super(props)
+    const user = localStorage.getItem('user');
+    this.state = {
+      showLoginModal: false,
+      loggedIn: JSON.parse(user)
+    }
   }
 
-  handleLoginClose = () => this.setState({showLogin: false});
-  handleLoginShow = () => this.setState({showLogin: true});
+  handleLoginClose = () => this.setState({showLoginModal: false});
+  handleLoginShow = () => this.setState({showLoginModal: true});
 
   render() {
-
+    const {
+      loggedIn,
+      showLoginModal
+    } = this.state;
     return (
       <>
         <Navbar className='home-nav p-1' collapseOnSelect expand="lg" variant="dark" fixed="top">
@@ -26,15 +34,22 @@ export default class HomeNav extends Component {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="ml-auto mr-4" >
-             <Button className="nav-button"  onClick={() => this.handleLoginShow()}>
-               Login
-             </Button>
+              {
+                loggedIn ?
+                  <Button className="nav-button" onClick={() => this.handleLoginShow()}>
+                    {loggedIn['user']['email']}
+                  </Button>
+                 : 
+                  <Button className="nav-button" onClick={() => this.handleLoginShow()}>
+                    Login
+                  </Button>
+              }
             </Nav>
           </Navbar.Collapse>
         </Navbar>
         <LoginModal 
           handleLoginClose={this.handleLoginClose} 
-          show={this.state.showLogin}
+          show={showLoginModal}
         />
       </>
     )

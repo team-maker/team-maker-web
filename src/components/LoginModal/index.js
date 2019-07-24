@@ -21,13 +21,13 @@ export default class LoginModal extends Component {
         localStorage.setItem('jwt', response.headers.authorization);
         this.props.saveLogIn(localStorage.getItem('jwt'));
       }
-      alert("LOGADO!!! O DIGUITO É NOOB");
+      this.props.handleLoginClose();
       // this.props.history.push(`/`)
     })
     .catch((error) => {
       switch (error.response.status) {
-        case 401:
-          alert("Password incorreta");
+        case 400:
+          alert("Email/Password incorrectos");
           break;
         case 404:
           alert("Utilizador não encontrado");
