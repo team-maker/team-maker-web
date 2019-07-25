@@ -21,7 +21,7 @@ export const UserService = {
   },
 
   requestPasswordRecovery(payload){
-    const url = `/api/users/reset_password`
+    const url = `/api/auth/password/reset/`
     return axios({
       method: 'get',
       url: url,
@@ -47,9 +47,9 @@ export const UserService = {
   },
 
   logOut(){
-    let url = '/users/sign_out';
+    let url = '/api/auth/logout/';
     return axios({
-      method: 'delete',
+      method: 'post',
       url: url
     });
   }

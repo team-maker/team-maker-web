@@ -1,54 +1,23 @@
 import React, { Component } from 'react'
 import { Modal, Button, Form }  from 'react-bootstrap';
-import { UserService } from '../../services';
 import logo from '../../assets/images/logo.png';
 import './styles.scss';
 
 
 export default class LoginModal extends Component {
 
-  handleLogin(e) {
-    e.preventDefault();
-    const payload = { 
-      username: e.target.email.value,
-      password: e.target.password.value 
-    };
-    UserService.doLogin(payload).then((response) => {
-      const user = response.data
-      localStorage.setItem('user', JSON.stringify(user));
-      // this.props.saveUser(user);
-      if (response.headers.authorization) {
-        localStorage.setItem('jwt', response.headers.authorization);
-        this.props.saveLogIn(localStorage.getItem('jwt'));
-      }
-      this.props.handleLoginClose();
-      // this.props.history.push(`/`)
-    })
-    .catch((error) => {
-      switch (error.response.status) {
-        case 400:
-          alert("Email/Password incorrectos");
-          break;
-        case 404:
-          alert("Utilizador não encontrado");
-          break;
-        default: 
-          alert("Something went wrong");
-      }
-    })
-  }
-
   render() {
     const {
       show,
-      handleLoginClose
+      handleLoginClose,
+      handleLogin
     } = this.props;
 
     return (
       <Modal className='login-modal' show={show} onHide={() => handleLoginClose()}>
         <Modal.Body>
           <img alt='Team Maker logo' className="logo mb-3" src={logo} />
-          <Form onSubmit={(e)=> this.handleLogin(e) }>
+          <Form onSubmit={(e) => handleLogin(e) }>
             <Form.Group controlId="formGroupEmail">
               <Form.Control type="email" placeholder="Enter email" name="email" />
             </Form.Group>
