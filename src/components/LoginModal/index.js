@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, Button, Form }  from 'react-bootstrap';
 import logo from '../../assets/images/logo.png';
+import FacebookLoginButton from '../shared/FacebookLoginButton';
 import './styles.scss';
 
 
@@ -27,6 +28,8 @@ export default class LoginModal extends Component {
             <Button className='m-auto' type='submit' variant="primary">
               Login
             </Button>
+            <p className="mt-2">Or</p>
+            <FacebookLoginButton/>
           </Form>
         </Modal.Body>
       </Modal>

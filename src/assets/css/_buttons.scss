@@ -3,7 +3,8 @@
   border-radius: 3px;
 
   &.btn-primary {
-    background-color: $primary-color;
+    background-color: $color-primary;
+    border-color: $color-primary;
     color: white;
     padding: 5px 15px;
     font-size: 20px;
