@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
 import { Navbar, Nav, Button, NavDropdown }  from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
+import { connect } from 'react-redux'
 import LoginModal from '../LoginModal';
 import './styles.scss';
 import { UserService, AuthenticationService } from '../../services';
+import { saveUser, doLogout } from '../../actions/userActions'
 import logo from '../../assets/images/logo.png';
 
-export default class HomeNav extends Component {
+class HomeNav extends Component {
+  
   constructor(props){
     super(props)
-    const user = localStorage.getItem('user');
     this.state = {
-      showLoginModal: false,
-      loggedIn: JSON.parse(user)
+      showLoginModal: false
     }
   }
 
@@ -22,7 +23,7 @@ export default class HomeNav extends Component {
   handleLogout() {
     UserService.logOut().then((response) => {
       AuthenticationService.logout();
-      this.setState({loggedIn: false})
+      this.props.doLogout();
     })
     .catch((error) => {
       alert("Não foi possível fazer logout");
@@ -32,20 +33,14 @@ export default class HomeNav extends Component {
   handleLogin = (e) => {
     e.preventDefault();
     const payload = { 
-      username: e.target.email.value,
+      email: e.target.email.value,
       password: e.target.password.value 
     };
     UserService.doLogin(payload).then((response) => {
-      const user = response.data
-      localStorage.setItem('user', JSON.stringify(user));
-      // this.props.saveUser(user);
-      if (response.headers.authorization) {
-        localStorage.setItem('jwt', response.headers.authorization);
-        // this.props.saveLogIn(localStorage.getItem('jwt'));
-      }
+      const dataResponse = response.data;
+      AuthenticationService.login(JSON.stringify(dataResponse.user), dataResponse.token);
+      this.props.saveUser(dataResponse);
       this.handleLoginClose();
-      this.setState({loggedIn: user})
-      // this.props.history.push(`/`)
     })
     .catch((error) => {
       switch (error.response.status) {
@@ -64,13 +59,16 @@ export default class HomeNav extends Component {
 
   render() {
     const {
-      loggedIn,
       showLoginModal
     } = this.state;
-    
+    const {
+      user,
+      jwtToken
+    } = this.props;
+
     return (
       <>
-        <Navbar className='home-nav p-1' collapseOnSelect expand="lg" variant="dark" fixed="top">
+        <Navbar className='home-nav p-1' collapseOnSelect expand="lg" fixed="top">
           <Navbar.Brand className="p-0">
             <NavLink to='/'>
              <img alt='Team Maker logo' className="logo" src={logo} />
@@ -80,8 +78,8 @@ export default class HomeNav extends Component {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="ml-auto mr-4" >
               {
-                loggedIn ?
-                  <NavDropdown title={loggedIn['user']['email']} id="basic-nav-dropdown">
+                jwtToken ?
+                  <NavDropdown title={user.first_name || user.email} id="basic-nav-dropdown">
                     <NavLink className="dropdown-item" to='/profile'>
                       Perfil
                     </NavLink>
@@ -104,4 +102,19 @@ export default class HomeNav extends Component {
     )
   }
 }
+
+function mapDispatchToProps(dispatch){
+  return {
+    saveUser: (user) => dispatch(saveUser(user)),
+    doLogout: () => dispatch(doLogout())
+  }
+}
+function mapStateToProps(state){
+  return {
+    user: state.userReducer.user,
+    jwtToken: state.userReducer.jwtToken
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeNav)
 

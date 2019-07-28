@@ -3,9 +3,18 @@ import axios from './interceptor';
 export const UserService = {
 
   doLogin(payload) {
-    const url ='/api/auth/login/';
+    const url ='/api/login';
     return axios({
       method: 'post',
+      url: url, 
+      data: payload
+    });
+  },
+
+  doFacebookLogin(payload) {
+    const url ='/api/facebook-login';
+    return axios({
+      method: 'put',
       url: url, 
       data: payload
     });
@@ -47,7 +56,7 @@ export const UserService = {
   },
 
   logOut(){
-    let url = '/api/auth/logout/';
+    let url = '/api/logout';
     return axios({
       method: 'post',
       url: url
