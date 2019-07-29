@@ -21,13 +21,8 @@ class HomeNav extends Component {
   handleLoginShow = () => this.setState({showLoginModal: true});
 
   handleLogout() {
-    UserService.logOut().then((response) => {
-      AuthenticationService.logout();
-      this.props.doLogout();
-    })
-    .catch((error) => {
-      alert("Não foi possível fazer logout");
-    })
+    AuthenticationService.logout();
+    this.props.doLogout();
   }
 
   handleLogin = (e) => {

@@ -53,13 +53,5 @@ export const UserService = {
         reset_token: payload.resetToken
       }
     })
-  },
-
-  logOut(){
-    let url = '/api/logout';
-    return axios({
-      method: 'post',
-      url: url
-    });
   }
 };
