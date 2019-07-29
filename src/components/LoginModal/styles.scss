@@ -1,8 +1,19 @@
+@import '../../index.scss';
+
 .login-modal {
+  // opacity: 0.5;
   text-align: center;
+
+  .modal-content {
+    background-color: $modal-bg-color;
+  }
   
   .logo {
     width: 190px;
+  }
+
+  p {
+    color: white;
   }
 
   .nav-button {
