@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NotFound from './components/NotFound'
 import Homepage from './components/Homepage'
 import HomeNav from './components/HomeNav'
+import Team from './components/Team'
+import PlayerProfile from './components/PlayerProfile'
+import PrivateRoute from './components/routes/PrivateRoute'
 
 function App() {
 
@@ -11,7 +14,9 @@ function App() {
       <Router>
         <HomeNav/>
         <Switch>
-          <Route path="/" exact component={Homepage} />
+          <Route exact path="/" component={Homepage} />
+          <PrivateRoute exact path="/teams" component={Team} />
+          <PrivateRoute exact path="/player-profile" component={PlayerProfile} />
           <Route component={NotFound} />
         </Switch>
       </Router>

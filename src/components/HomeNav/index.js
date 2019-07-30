@@ -61,6 +61,7 @@ class HomeNav extends Component {
       jwtToken
     } = this.props;
 
+    console.log(jwtToken)
     return (
       <>
         <Navbar className='home-nav p-1' collapseOnSelect expand="lg" fixed="top">
@@ -71,11 +72,11 @@ class HomeNav extends Component {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="ml-auto mr-4" >
+            <Nav className="ml-auto mr-5" >
               {
                 jwtToken ?
-                  <NavDropdown title={user.first_name || user.email} id="basic-nav-dropdown">
-                    <NavLink className="dropdown-item" to='/profile'>
+                  <NavDropdown title={user.first_name || user.email} id="collasible-nav-dropdown">
+                    <NavLink className="dropdown-item" to='/player-profile'>
                       Perfil
                     </NavLink>
                     <NavDropdown.Item onClick={() => this.handleLogout()}>Logout</NavDropdown.Item>
@@ -88,11 +89,14 @@ class HomeNav extends Component {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <LoginModal 
-          handleLogin={this.handleLogin}
-          handleLoginClose={this.handleLoginClose} 
-          show={showLoginModal}
-        />
+        {
+          !jwtToken &&
+          <LoginModal 
+            handleLogin={this.handleLogin}
+            handleLoginClose={this.handleLoginClose} 
+            show={showLoginModal}
+          />
+        }
       </>
     )
   }
