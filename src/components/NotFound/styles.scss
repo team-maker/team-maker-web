@@ -9,14 +9,26 @@
   height: calc(100vh - #{$nav-height});
   margin-top: $nav-height;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
+  text-align: center;
+
+  &:before {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+  }
 
   .content {
     .title {
       color: white;
       font-weight: bold;
-      font-size: 3rem;
+      font-size: 2rem;
       text-transform: uppercase;
     }
     .facebook-button {
