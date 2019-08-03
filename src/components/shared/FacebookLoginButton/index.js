@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login';
 import { connect } from 'react-redux'
 import { UserService, AuthenticationService } from '../../../services';
+import { getGravatarImage } from '../../../utils';
 import { saveUser } from '../../../actions/userActions'
 import './styles.scss';
 
@@ -10,11 +11,13 @@ class FacebookLoginButton extends Component {
   responseFacebook = (response) => {
     const payload = {
       name: response.name,
-      email: response.email,
-      image_url: response.picture.data.url
+      email: response.email
     }
     UserService.doFacebookLogin(payload).then((response) => {
-      const dataResponse = response.data;
+      let dataResponse = response.data;
+      if (!dataResponse.user.photo) {
+        dataResponse.user.photo = getGravatarImage(dataResponse.user.email)
+      }
       AuthenticationService.login(JSON.stringify(dataResponse.user), dataResponse.token);
       this.props.saveUser(dataResponse);
     })
@@ -26,7 +29,7 @@ class FacebookLoginButton extends Component {
         appId={process.env.REACT_APP_FACEBOOK_APP_ID}
         autoLoad={false}
         fields="name,email,picture"
-        cssClass="facebook-button"
+        cssClass="btn btn-secondary"
         icon="fa-facebook"
         callback={this.responseFacebook} />
     )
