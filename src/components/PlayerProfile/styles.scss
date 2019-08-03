@@ -12,6 +12,10 @@
   flex-direction: column;
   color: white;
   align-items: center;
+
+  .image {
+    margin: auto; 
+  }
   
   .form {
     display: flex;

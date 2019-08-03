@@ -9,7 +9,7 @@ export default class Homepage extends Component {
     return (
       <div className='homepage'>
         <Container className='content mt-5'>
-          <h1 className="title mb-3">Join Your Friends and Create your own League!</h1>
+          <h1 className="mb-3 text-uppercase font-weight-bold">Join Your Friends and Create your own League!</h1>
           <FacebookLoginButton/>
         </Container>
       </div>

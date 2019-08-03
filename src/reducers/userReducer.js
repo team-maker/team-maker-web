@@ -11,6 +11,11 @@ const userReducer = (state = initialState, action) => {
         user: action.payload.user,
         jwtToken: action.payload.token
       }
+    case 'UPDATE_USER':
+      return {
+        ...state,
+        user: action.payload,
+      }
     default:
       return state;
   }

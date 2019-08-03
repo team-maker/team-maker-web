@@ -20,6 +20,14 @@ export const UserService = {
     });
   },
 
+  doGetUser() {
+    const url ='/api/users';
+    return axios({
+      method: 'get',
+      url: url
+    });
+  },
+
   updatePassword(payload) {
     const url = '/api/users/update_password'
     return axios({
