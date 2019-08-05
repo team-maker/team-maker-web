@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Container, Form, Button }  from 'react-bootstrap';
-import CustomInput from '../shared/CustomInput';
+import CustomInput from '../../shared/CustomInput';
 import Rating from 'react-rating';
-import { getGravatarImage } from '../../utils';
-import { PlayerService, UserService } from '../../services';
+import { getGravatarImage } from '../../../utils';
+import { PlayerService, UserService } from '../../../services';
 import { connect } from 'react-redux'
-import { updateUser } from '../../actions/userActions'
-import { savePlayer } from '../../actions/playerActions'
+import { updateUser } from '../../../actions/userActions'
+import { savePlayer } from '../../../actions/playerActions'
 import cogoToast from 'cogo-toast';
 import './styles.scss';
 
-class PlayerProfile extends Component {
+class Profile extends Component {
 
   constructor(props) {
      super(props)
@@ -147,4 +147,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerProfile)
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)

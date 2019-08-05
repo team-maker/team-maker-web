@@ -18,7 +18,7 @@ class PrivateRoute extends Component{
         if(isLoggedIn && !has_filled_data) {
           return <Redirect to={'/player-profile'} />
         }
-        return <Redirect to={'/'} />
+        return <Redirect to={'/teams'} />
       }} />
     );
   }

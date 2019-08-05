@@ -9,6 +9,11 @@ const playerReducer = (state = initialState, action) => {
         ...state,
         player: action.payload.player
       }
+    case 'SAVE_TEAM_PLAYERS':
+      return {
+        ...state,
+        teamPlayers: action.payload
+      }
     default:
       return state;
   }

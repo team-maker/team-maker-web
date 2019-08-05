@@ -6,6 +6,7 @@ import './styles.scss';
 export default class Homepage extends Component {
 
   render() {
+
     return (
       <div className='homepage'>
         <Container className='content mt-5'>
