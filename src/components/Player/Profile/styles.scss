@@ -1,10 +1,8 @@
-@import '../../index.scss';
+@import '../../../index.scss';
 
 .profile {
-  background-color: $color-primary;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  @include background-cover;
+  @include background-color;
   height: calc(100vh - #{$nav-height});
   margin-top: $nav-height;
   display: flex;

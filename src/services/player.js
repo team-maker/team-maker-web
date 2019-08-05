@@ -2,8 +2,8 @@ import axios from './interceptor';
 
 export const PlayerService = {
 
-  doGetPlayer() {
-    const url ='/api/players';
+  doGetTeamPlayers() {
+    const url ='/api/team-players';
     return axios({
       method: 'get',
       url: url
@@ -14,6 +14,15 @@ export const PlayerService = {
     const url ='/api/players';
     return axios({
       method: 'put',
+      url: url,
+      data: payload
+    });
+  },
+
+  doJoinTeam(payload) {
+    const url ='/api/team-players';
+    return axios({
+      method: 'post',
       url: url,
       data: payload
     });

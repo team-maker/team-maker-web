@@ -1,0 +1,118 @@
+import React, { Component } from 'react';
+import { Link } from "react-router-dom";
+import { Container, Card, Button, Form }  from 'react-bootstrap';
+import CustomInput from '../../shared/CustomInput';
+import { PlayerService } from '../../../services';
+import { connect } from 'react-redux'
+import { saveTeamPlayers } from '../../../actions/playerActions'
+import cogoToast from 'cogo-toast';
+import './styles.scss';
+
+class Teams extends Component {
+
+  componentDidMount() {
+    this.getGetTeamPlayers();
+  }
+
+  getGetTeamPlayers() {
+    PlayerService.doGetTeamPlayers().then((response) => {
+      this.props.saveTeamPlayers(response.data);
+    })
+    .catch((error) => {
+      cogoToast.error('ERROR');
+    })
+  }
+
+  JoinTeamSubmit = (event) => {
+    event.preventDefault();
+    const {
+      token,
+    } = event.target;
+    const error = !token.value
+
+    if (error) {
+      cogoToast.error('Please insert Token');
+    }
+    
+    const payload = {
+      team_token: token.value
+    }
+    PlayerService.doJoinTeam(payload).then((response) => {
+      cogoToast.success('Player Updated');
+    })
+    .catch((error) => {
+      const messages = error.response.data
+      cogoToast.error('Request Error: ' + messages);
+    })
+  }
+
+  renderTeamCards(teamPlayers) {
+    return teamPlayers.map((teamPlayer) => {
+      const team = teamPlayer.team
+      return(
+        <Link className="text-decoration-none" to={`/teams/${team.id}`}>
+          <Card className="team shadow">
+            <Card.Body className="text-center">
+              <h3 className="font-weight-bold mb-5">{ team.name }</h3>
+              <h4 className="font-weight-bold mt-5">Click to visit Team Dashboard</h4>
+              <h5 className="font-weight-bold mt-5">{`Nº of Players: ${team.players.length}`}</h5>
+              <h5 className="font-weight-bold mt-5">{`Admin: ${team.players[0].user.first_name}`}</h5>
+            </Card.Body>
+          </Card>
+        </Link>
+      )
+    })
+  }
+
+  render() {
+    const {
+      teamPlayers
+    } = this.props;
+
+    const hasTeams = teamPlayers && teamPlayers.length !== 0;
+    return (
+      <div className='teams'>
+        <Container className='mt-5'>
+          <Card>
+            <Card.Body className="text-center">
+              <h4 className="font-weight-bold mb-5">Insert Token to Join one Team:</h4>
+              <Form className="form mb-4" onSubmit={this.JoinTeamSubmit}>
+                <CustomInput
+                  name="token"
+                  value={''}
+                  required={true}
+                  label="Token"
+                />
+                <Button className="primary font-weight-bold" type="submit">
+                  Join
+                </Button>
+              </Form>
+              <h4 className="font-weight-bold mb-4">Or</h4>
+              <Button variant="secondary" type="submit">
+                Create your league
+              </Button>
+            </Card.Body>
+           </Card>
+           { 
+              hasTeams && 
+              this.renderTeamCards(teamPlayers)
+            }
+        </Container>
+      </div>
+    )
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    teamPlayers: state.playerReducer.teamPlayers
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    saveTeamPlayers: (teamPlayers) => dispatch(saveTeamPlayers(teamPlayers))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Teams)

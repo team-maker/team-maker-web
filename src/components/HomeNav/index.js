@@ -41,6 +41,7 @@ class HomeNav extends Component {
       AuthenticationService.login(JSON.stringify(dataResponse.user), dataResponse.token);
       this.props.saveUser(dataResponse);
       this.handleLoginClose();
+      this.props.history.push("/teams");
     })
     .catch((error) => {
       switch (error.response.status) {
@@ -66,7 +67,6 @@ class HomeNav extends Component {
       jwtToken
     } = this.props;
 
-    console.log(jwtToken)
     return (
       <>
         <Navbar className='home-nav p-1' collapseOnSelect expand="lg" fixed="top">
@@ -82,7 +82,10 @@ class HomeNav extends Component {
                 jwtToken ?
                   <NavDropdown title={user.first_name || user.email} id="collasible-nav-dropdown">
                     <NavLink className="dropdown-item" to='/player-profile'>
-                      Perfil
+                      Profile
+                    </NavLink>
+                    <NavLink className="dropdown-item" to='/teams'>
+                      Team
                     </NavLink>
                     <NavDropdown.Item onClick={() => this.handleLogout()}>Logout</NavDropdown.Item>
                   </NavDropdown>
