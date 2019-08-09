@@ -38,7 +38,10 @@ class Teams extends Component {
       team_token: token.value
     }
     PlayerService.doJoinTeam(payload).then((response) => {
-      cogoToast.success('Player Updated');
+      debugger;
+      const teamId = response.data.id
+      this.props.history.push(`/teams/${teamId}/dashboard`);
+      cogoToast.success('Team joined');
     })
     .catch((error) => {
       const messages = error.response.data
