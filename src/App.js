@@ -3,7 +3,10 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NotFound from './components/NotFound'
 import Homepage from './components/Homepage'
 import HomeNav from './components/HomeNav'
-import { Profile, Teams, TeamDashboard } from './components/Player'
+import Teams from './components/Teams'
+import CreateTeam from './components/Teams/Create'
+import Wrapper from './components/Teams/Wrapper'
+import Profile from './components/Player/Profile'
 import PrivateRoute from './components/routes/PrivateRoute'
 
 function App() {
@@ -14,8 +17,9 @@ function App() {
         <HomeNav/>
         <Switch>
           <Route exact path="/" component={Homepage} />
+          <PrivateRoute exact path="/teams/create" component={CreateTeam} />
           <PrivateRoute exact path="/teams" component={Teams} />
-          <PrivateRoute exact path="/teams/:teamId" component={TeamDashboard} />
+          <PrivateRoute path="/teams/:id" component={Wrapper} />
           <PrivateRoute exact path="/player-profile" component={Profile} />
           <Route component={NotFound} />
         </Switch>

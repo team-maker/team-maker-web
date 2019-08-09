@@ -1,0 +1,67 @@
+@import '../../../index.scss';
+
+.team-dashboard {
+  @include background-cover;
+  @include background-color;
+  height: calc(100vh - #{$nav-height});
+  margin-top: $nav-height;
+  display: flex;
+  flex-direction: column;
+  color: white;
+
+  * {
+    z-index: 1;
+  }
+
+  /*----------------page-wrapper----------------*/
+
+  .theme {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border-radius: 4px;
+    margin: 2px;
+  }
+
+  .theme.chiller-theme {
+    background: #1e2229;
+  }
+
+  /*----------------toggeled sidebar----------------*/
+
+  &.toggled .sidebar-wrapper {
+    left: 0px;
+    top: $nav-height;
+  }
+  
+  $content-margin: calc(#{$sidebar-width} + 20px);
+  @media screen and (min-width: 768px) {
+    &.toggled .page-content {
+      margin-left: $content-margin;
+      margin-top: $sidebar-margin-y;
+      margin-right: 40px;
+    }
+  }
+
+  &.toggled #show-sidebar {
+    left: -40px;
+  }
+
+  /*--------------------------page-content-----------------------------*/
+
+  .page-content {
+    display: inline-block;
+    width: calc(100% - #{$content-margin} - 20px);
+    padding-left: 0px;
+    background: rgba(0,0,0,0.35);
+  }
+
+  .page-content > div {
+    padding: 20px 40px;
+  }
+
+  .page-content {
+    overflow-x: hidden;
+  }
+  
+}

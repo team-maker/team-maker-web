@@ -1,8 +1,8 @@
-@import '../../../index.scss';
+@import '../../index.scss';
 
 .teams {
   @include background-cover;
-  background-image: url("../../../assets/images/background-images/team-card.jpg");
+  background-image: url("../../assets/images/background-images/team-background.jpg");
   @include gradient;
   height: calc(100vh - #{$nav-height});
   margin-top: $nav-height;

@@ -18,8 +18,8 @@ export const PlayerService = {
     });
   },
 
-  doPlayerUpdate(payload) {
-    const url ='/api/players';
+  doPlayerUpdate(playerId, payload) {
+    const url =`/api/players/${playerId}`;
     return axios({
       method: 'put',
       url: url,
