@@ -20,11 +20,20 @@ export const UserService = {
     });
   },
 
-  doGetUser() {
-    const url ='/api/users';
+  doGetUser(userId) {
+    const url =`/api/users/${userId}`;
     return axios({
       method: 'get',
-      url: url
+      url: url,
+    });
+  },
+
+  doUpdateUser(userId, payload) {
+    const url =`/api/users/${userId}`;
+    return axios({
+      method: 'put',
+      url: url,
+      data: payload
     });
   },
 

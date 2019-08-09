@@ -2,3 +2,4 @@
 export { AuthenticationService } from './authentication';
 export { UserService } from './user';
 export { PlayerService } from './player';
+export { TeamService } from './team';

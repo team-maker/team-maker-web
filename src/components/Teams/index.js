@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { Container, Card, Button, Form }  from 'react-bootstrap';
-import CustomInput from '../../shared/CustomInput';
-import { PlayerService } from '../../../services';
+import CustomInput from '../shared/CustomInput';
+import { PlayerService } from '../../services';
 import { connect } from 'react-redux'
-import { saveTeamPlayers } from '../../../actions/playerActions'
+import { saveTeamPlayers } from '../../actions/playerActions'
 import cogoToast from 'cogo-toast';
 import './styles.scss';
 
@@ -50,13 +50,13 @@ class Teams extends Component {
     return teamPlayers.map((teamPlayer) => {
       const team = teamPlayer.team
       return(
-        <Link className="text-decoration-none" to={`/teams/${team.id}`}>
+        <Link className="text-decoration-none" to={`/teams/${team.id}/dashboard`}>
           <Card className="team shadow">
             <Card.Body className="text-center">
               <h3 className="font-weight-bold mb-5">{ team.name }</h3>
               <h4 className="font-weight-bold mt-5">Click to visit Team Dashboard</h4>
               <h5 className="font-weight-bold mt-5">{`Nº of Players: ${team.players.length}`}</h5>
-              <h5 className="font-weight-bold mt-5">{`Admin: ${team.players[0].user.first_name}`}</h5>
+              <h5 className="font-weight-bold mt-5">{`Admin: ${team.players[0].first_name}`}</h5>
             </Card.Body>
           </Card>
         </Link>
@@ -75,7 +75,7 @@ class Teams extends Component {
         <Container className='mt-5'>
           <Card>
             <Card.Body className="text-center">
-              <h4 className="font-weight-bold mb-5">Insert Token to Join one Team:</h4>
+              <h3 className="font-weight-bold mb-5">Join Team:</h3>
               <Form className="form mb-4" onSubmit={this.JoinTeamSubmit}>
                 <CustomInput
                   name="token"
@@ -88,9 +88,9 @@ class Teams extends Component {
                 </Button>
               </Form>
               <h4 className="font-weight-bold mb-4">Or</h4>
-              <Button variant="secondary" type="submit">
-                Create your league
-              </Button>
+              <Link className="btn btn-secondary" to={`/teams/create`}>
+                Create your own League
+              </Link>
             </Card.Body>
            </Card>
            { 

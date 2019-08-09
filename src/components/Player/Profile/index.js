@@ -3,10 +3,9 @@ import { Container, Form, Button }  from 'react-bootstrap';
 import CustomInput from '../../shared/CustomInput';
 import Rating from 'react-rating';
 import { getGravatarImage } from '../../../utils';
-import { PlayerService, UserService } from '../../../services';
+import { UserService } from '../../../services';
 import { connect } from 'react-redux'
 import { updateUser } from '../../../actions/userActions'
-import { savePlayer } from '../../../actions/playerActions'
 import cogoToast from 'cogo-toast';
 import './styles.scss';
 
@@ -15,25 +14,9 @@ class Profile extends Component {
   constructor(props) {
      super(props)
      this.state = {
-       rating: 1
+       rating: props.user.player.rating
      }
    }
-
-  componentDidMount() {
-    if (!this.props.player) {
-      this.getPlayer()
-    }
-  }
-
-  getPlayer() {
-    PlayerService.doGetPlayer().then((response) => {
-      this.setState({ rating: response.data.rating })
-      this.props.savePlayer(response.data);
-    })
-    .catch((error) => {
-      alert('ERROR', error);
-    })
-  }
 
   ratingChange = (value) => {
     this.setState({rating: value});
@@ -54,21 +37,16 @@ class Profile extends Component {
     }
     
     const payload = {
-      user: {
-        email: email.value,
-        first_name: firstName.value,
-        last_name: lastName.value,
-      },
+      email: email.value,
+      first_name: firstName.value,
+      last_name: lastName.value,
       player: {
         rating: rating
       }
     }
-    PlayerService.doPlayerUpdate(payload).then((response) => {
-      PlayerService.doGetPlayer().then((response) => {
-        console.log('player', response);
-        this.props.savePlayer(response.data);
-      });
-      UserService.doGetUser().then((response) => {
+    const userId = this.props.user.id;
+    UserService.doUpdateUser(userId, payload).then((response) => {
+      UserService.doGetUser(userId).then((response) => {
         let user = response.data
         user.photo = getGravatarImage(user.email)
         localStorage.setItem('user', JSON.stringify(user));
@@ -89,7 +67,7 @@ class Profile extends Component {
       email,
       first_name,
       last_name,
-      photo
+      photo,
     } = this.props.user;
     
     return (
@@ -135,15 +113,13 @@ class Profile extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.userReducer.user,
-    player: state.playerReducer.player
+    user: state.userReducer.user
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateUser: (user) => dispatch(updateUser(user)),
-    savePlayer: (player) => dispatch(savePlayer(player))
+    updateUser: (user) => dispatch(updateUser(user))
   }
 }
 
