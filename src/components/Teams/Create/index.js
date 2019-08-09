@@ -10,25 +10,6 @@ import './styles.scss';
 
 class CreateTeam extends Component {
 
-  componentDidMount() {
-    if (!this.props.player) {
-      this.getPlayer()
-    }
-  }
-
-  getPlayer() {
-    PlayerService.doGetPlayer().then((response) => {
-      this.props.savePlayer(response.data);
-    })
-    .catch((error) => {
-      cogoToast.error('Error fetching player');
-    })
-  }
-
-  ratingChange = (value) => {
-    this.setState({rating: value});
-  }
-
   handleSubmit = (event) => {
     event.preventDefault();
     const {
@@ -41,16 +22,15 @@ class CreateTeam extends Component {
     }
     
     const payload = {
-        name: name.value,
+      name: name.value,
     }
 
     TeamService.doCreateTeam(payload).then((response) => {
       const teamId = response.data.id
       cogoToast.success('Team created');
-      this.props.history.push(`/teams/${teamId}`);
+      this.props.history.push(`/teams/${teamId}/dashboard`);
     })
     .catch((error) => {
-      debugger;
       cogoToast.error('Request Error :(');
     })
   }
@@ -78,16 +58,4 @@ class CreateTeam extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    player: state.playerReducer.player
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    savePlayer: (player) => dispatch(savePlayer(player))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreateTeam)
+export default CreateTeam
