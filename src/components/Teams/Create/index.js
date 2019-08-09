@@ -26,7 +26,7 @@ class CreateTeam extends Component {
     }
 
     TeamService.doCreateTeam(payload).then((response) => {
-      const teamId = response.data.team.id
+      const teamId = response.data.id
       cogoToast.success('Team created');
       this.props.history.push(`/teams/${teamId}/dashboard`);
     })
