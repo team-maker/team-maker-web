@@ -11,9 +11,8 @@ class PrivateRoute extends Component{
     return(
       <Route {...rest} render={(props) => {
         const isLoggedIn = localStorage.getItem('jwtToken')
-        console.log(has_filled_data)
         if(isLoggedIn && has_filled_data) {
-          return  <Component {...props}/>
+          return  <Component {...props} {...rest}/>
         }
         if(isLoggedIn && !has_filled_data) {
           return <Redirect to={'/player-profile'} />

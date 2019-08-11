@@ -38,7 +38,6 @@ class Teams extends Component {
       team_token: token.value
     }
     PlayerService.doJoinTeam(payload).then((response) => {
-      debugger;
       const teamId = response.data.id
       this.props.history.push(`/teams/${teamId}/dashboard`);
       cogoToast.success('Team joined');
@@ -75,7 +74,7 @@ class Teams extends Component {
     const hasTeams = teamPlayers && teamPlayers.length !== 0;
     return (
       <div className='teams'>
-        <Container className='mt-5'>
+        <Container>
           <Card>
             <Card.Body className="text-center">
               <h3 className="font-weight-bold mb-5">Join Team:</h3>

@@ -4,7 +4,8 @@
   @include background-cover;
   background-image: url("../../assets/images/background-images/team-background.jpg");
   @include gradient;
-  height: calc(100vh - #{$nav-height});
+  min-height: calc(100vh - #{$nav-height});
+  position: relative;
   margin-top: $nav-height;
   display: flex;
   justify-content: center;
@@ -18,9 +19,15 @@
   
   .container {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     flex-direction: row;
     align-items: center;
+    margin-top: $nav-height;
+    flex-wrap: wrap;
+
+    &.center {
+      justify-content: center;
+    }
   }
 
   .card {
@@ -29,6 +36,7 @@
     border: 4px solid white;
     width: 350px;
     align-self: center;
+    margin-bottom: 20px; 
 
     &.team {
       &:hover {

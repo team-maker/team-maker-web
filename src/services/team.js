@@ -17,5 +17,13 @@ export const TeamService = {
       method: 'get',
       url: url
     });
+  },
+
+  doGetTeamByToken(token) {
+    const url = `/api/teams/token/${token}`;
+    return axios({
+      method: 'get',
+      url: url
+    });
   }
 };

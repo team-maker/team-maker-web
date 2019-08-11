@@ -56,11 +56,11 @@ class Wrapper extends Component {
           team={team}
         />
         <div className="page-content">
-          <PrivateRoute path={`${match.path}/dashboard`} component={Dashboard} />
-          <PrivateRoute path={`${match.path}/players`} component={Player} />
-          <PrivateRoute path={`${match.path}/games`} component={Game} />
-          <PrivateRoute path={`${match.path}/rules`} component={Rules} />
-          <PrivateRoute path={`${match.path}/invites`} component={Invite} />
+          <PrivateRoute path={`${match.path}/dashboard`} component={Dashboard} team={team} />
+          <PrivateRoute path={`${match.path}/players`} component={Player} team={team} />
+          <PrivateRoute path={`${match.path}/games`} component={Game} team={team} />
+          <PrivateRoute path={`${match.path}/rules`} component={Rules} team={team} />
+          <PrivateRoute path={`${match.path}/invites`} component={Invite} team={team} />
         </div>
       </div>
     )
