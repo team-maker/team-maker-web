@@ -20,6 +20,8 @@ class FacebookLoginButton extends Component {
       }
       AuthenticationService.login(JSON.stringify(dataResponse.user), dataResponse.token);
       this.props.saveUser(dataResponse);
+      console.log(this.props.redirectTo);
+      this.props.history.push(this.props.redirectTo);
     })
   }
 
@@ -36,10 +38,16 @@ class FacebookLoginButton extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch){
+function mapStateToProps(state){
   return {
-    saveUser: (user) => dispatch(saveUser(user))
+    redirectTo: state.generalReducer.redirectTo
   }
 }
 
-export default connect(null, mapDispatchToProps)(FacebookLoginButton)
+function mapDispatchToProps(dispatch){
+  return {
+    saveUser: (user) => dispatch(saveUser(user)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FacebookLoginButton)

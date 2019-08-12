@@ -11,7 +11,8 @@ export default class LoginModal extends Component {
     const {
       show,
       handleLoginClose,
-      handleLogin
+      handleLogin,
+      history
     } = this.props;
 
     return (
@@ -29,7 +30,7 @@ export default class LoginModal extends Component {
               Login
             </Button>
             <p className="mt-2">Or</p>
-            <FacebookLoginButton/>
+            <FacebookLoginButton history={history}/>
           </Form>
         </Modal.Body>
       </Modal>

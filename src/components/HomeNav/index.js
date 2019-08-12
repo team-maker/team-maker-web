@@ -41,7 +41,7 @@ class HomeNav extends Component {
       AuthenticationService.login(JSON.stringify(dataResponse.user), dataResponse.token);
       this.props.saveUser(dataResponse);
       this.handleLoginClose();
-      this.props.history.push("/teams");
+      this.props.history.push(this.props.redirectTo);
     })
     .catch((error) => {
       switch (error.response.status) {
@@ -103,6 +103,7 @@ class HomeNav extends Component {
             handleLogin={this.handleLogin}
             handleLoginClose={this.handleLoginClose} 
             show={showLoginModal}
+            history={this.props.history}
           />
         }
       </>
@@ -119,7 +120,8 @@ function mapDispatchToProps(dispatch){
 function mapStateToProps(state){
   return {
     user: state.userReducer.user,
-    jwtToken: state.userReducer.jwtToken
+    jwtToken: state.userReducer.jwtToken,
+    redirectTo: state.generalReducer.redirectTo,
   }
 }
 
