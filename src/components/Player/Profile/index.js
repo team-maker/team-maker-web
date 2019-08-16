@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Container, Form, Button }  from 'react-bootstrap';
 import CustomInput from '../../shared/CustomInput';
 import Rating from 'react-rating';
 import { getGravatarImage } from '../../../utils';
 import { UserService } from '../../../services';
-import { connect } from 'react-redux'
 import { updateUser } from '../../../actions/userActions'
+import { startFetch, endFetch } from '../../../actions/generalActions'
 import cogoToast from 'cogo-toast';
 import './styles.scss';
 
@@ -45,18 +46,25 @@ class Profile extends Component {
       }
     }
     const userId = this.props.user.id;
-    UserService.doUpdateUser(userId, payload).then((response) => {
-      UserService.doGetUser(userId).then((response) => {
-        let user = response.data
-        user.photo = getGravatarImage(user.email)
-        localStorage.setItem('user', JSON.stringify(user));
-        this.props.updateUser(user);
-      });
-      cogoToast.success('Player Updated');
-    })
-    .catch((error) => {
-      cogoToast.error('Request Error :(');
-    })
+    this.props.startFetch();
+    UserService.doUpdateUser(userId, payload)
+      .then((response) => {
+        UserService.doGetUser(userId)
+          .then((response) => {
+            let user = response.data
+            user.photo = getGravatarImage(user.email)
+            localStorage.setItem('user', JSON.stringify(user));
+            this.props.updateUser(user);
+          });
+        cogoToast.success('Player Updated');
+      })
+      .catch((error) => {
+        cogoToast.error('Request Error :(');
+      })
+      .finally(() => {
+        this.props.endFetch();
+      })
+    
   }
 
   render() {
@@ -119,7 +127,9 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateUser: (user) => dispatch(updateUser(user))
+    updateUser: (user) => dispatch(updateUser(user)),
+    startFetch: () => dispatch(startFetch()),
+    endFetch: () => dispatch(endFetch())
   }
 }
 

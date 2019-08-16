@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Button }  from 'react-bootstrap';
+import { Button }  from 'react-bootstrap';
 import cogoToast from 'cogo-toast';
 import './styles.scss';
 

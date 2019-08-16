@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Container, Form, Button }  from 'react-bootstrap';
 import CustomInput from '../../shared/CustomInput';
-import Rating from 'react-rating';
-import { PlayerService, TeamService } from '../../../services';
-import { connect } from 'react-redux'
-import { savePlayer } from '../../../actions/playerActions'
+import { TeamService } from '../../../services';
+import { startFetch, endFetch } from '../../../actions/generalActions'
 import cogoToast from 'cogo-toast';
 import './styles.scss';
 
@@ -25,14 +24,19 @@ class CreateTeam extends Component {
       name: name.value,
     }
 
-    TeamService.doCreateTeam(payload).then((response) => {
-      const teamId = response.data.id
-      cogoToast.success('Team created');
-      this.props.history.push(`/teams/${teamId}/dashboard`);
-    })
-    .catch((error) => {
-      cogoToast.error('Request Error :(');
-    })
+    this.props.startFetch();
+    TeamService.doCreateTeam(payload)
+      .then((response) => {
+        const teamId = response.data.id
+        cogoToast.success('Team created');
+        this.props.history.push(`/teams/${teamId}/dashboard`);
+      })
+      .catch((error) => {
+        cogoToast.error('Request Error :(');
+      })
+      .finally(() => {
+        this.props.endFetch();
+      })
   }
 
   render() {
@@ -58,4 +62,11 @@ class CreateTeam extends Component {
   }
 }
 
-export default CreateTeam
+function mapDispatchToProps(dispatch) {
+  return {
+    startFetch: () => dispatch(startFetch()),
+    endFetch: () => dispatch(endFetch())
+  }
+}
+
+export default connect(null, mapDispatchToProps)(CreateTeam)

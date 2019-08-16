@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PrivateRoute from '../../routes/PrivateRoute'
-import { Container }  from 'react-bootstrap';
 import { TeamService } from '../../../services';
 import Sidebar from './Sidebar/index.js';
 import Player from './Players/index.js';
@@ -8,7 +8,6 @@ import Game from './Games/index.js';
 import Dashboard from './Dashboard/index.js';
 import Invite from './Invites/index.js';
 import Rules from './Rules/index.js';
-import { connect } from 'react-redux'
 import { saveTeamPlayers } from '../../../actions/playerActions'
 import cogoToast from 'cogo-toast';
 import './styles.scss';
@@ -37,8 +36,7 @@ class Wrapper extends Component {
 
   render() {
     const {
-      team,
-      sidebarExpanded
+      team
     } = this.state;
 
     const {

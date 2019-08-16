@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Container, Card, Button }  from 'react-bootstrap';
-import CustomInput from '../../shared/CustomInput';
-import Rating from 'react-rating';
 import { PlayerService, TeamService } from '../../../services';
 import { connect } from 'react-redux'
-import { savePlayer } from '../../../actions/playerActions'
+import { startFetch, endFetch } from '../../../actions/generalActions'
 import cogoToast from 'cogo-toast';
 import queryString from 'query-string'
 import '../styles.scss';
@@ -27,12 +25,17 @@ class Join extends Component {
 
   getGetTeam() {
     const { token } = this.state; 
-    TeamService.doGetTeamByToken(token).then((response) => {
-      this.setState({team: response.data })
-    })
-    .catch((error) => {
-      cogoToast.error('ERROR');
-    })
+    this.props.startFetch();
+    TeamService.doGetTeamByToken(token)
+      .then((response) => {
+        this.setState({team: response.data })
+      })
+      .catch((error) => {
+        cogoToast.error('ERROR');
+      })
+      .finally(() => {
+        this.props.endFetch();
+      })
   }
 
   JoinTeamSubmit = () => {
@@ -43,15 +46,20 @@ class Join extends Component {
     const payload = {
       team_token: token
     }
-    PlayerService.doJoinTeam(payload).then((response) => {
-      const teamId = response.data.team.id
-      this.props.history.push(`/teams/${teamId}/dashboard`);
-      cogoToast.success('Team joined');
-    })
-    .catch((error) => {
-      const messages = error.response.data
-      cogoToast.error('Request Error: ' + messages);
-    })
+    this.props.startFetch();
+    PlayerService.doJoinTeam(payload)
+      .then((response) => {
+        const teamId = response.data.team.id
+        this.props.history.push(`/teams/${teamId}/dashboard`);
+        cogoToast.success('Team joined');
+      })
+      .catch((error) => {
+        const messages = error.response.data
+        cogoToast.error('Request Error: ' + messages);
+      })
+      .finally(() => {
+        this.props.endFetch();
+      })
   }
 
   render() {
@@ -80,4 +88,11 @@ class Join extends Component {
   }
 }
 
-export default Join
+function mapDispatchToProps(dispatch) {
+  return {
+    startFetch: () => dispatch(startFetch()),
+    endFetch: () => dispatch(endFetch())
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Join)

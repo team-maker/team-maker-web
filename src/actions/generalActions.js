@@ -4,3 +4,16 @@ export function addRedirect(redirectTo){
     payload: redirectTo
   }
 }
+
+export function startFetch(){
+  return {
+    type: 'LOADING_TRUE',
+  }
+}
+
+export function endFetch(){
+  return {
+    type: 'LOADING_FALSE',
+  }
+}
+

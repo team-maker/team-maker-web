@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Container }  from 'react-bootstrap';
-import { Redirect } from "react-router-dom";
 import { addRedirect } from '../../actions/generalActions'
 import FacebookLoginButton from '../shared/FacebookLoginButton';
 import './styles.scss';
