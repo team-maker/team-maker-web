@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { Container, Card, Button, Form }  from 'react-bootstrap';
 import CustomInput from '../shared/CustomInput';
 import { PlayerService } from '../../services';
-import { connect } from 'react-redux'
 import { saveTeamPlayers } from '../../actions/playerActions'
+import { startFetch, endFetch } from '../../actions/generalActions'
 import cogoToast from 'cogo-toast';
 import './styles.scss';
 
@@ -15,12 +16,16 @@ class Teams extends Component {
   }
 
   getGetTeamPlayers() {
-    PlayerService.doGetTeamPlayers().then((response) => {
-      this.props.saveTeamPlayers(response.data);
-    })
-    .catch((error) => {
-      cogoToast.error('ERROR');
-    })
+    this.props.startFetch();
+    PlayerService.doGetTeamPlayers()
+      .then((response) => {
+        this.props.saveTeamPlayers(response.data);
+      }).catch((error) => {
+        cogoToast.error('ERROR');
+      })
+      .finally(() => {
+        this.props.endFetch();
+      })
   }
 
   JoinTeamSubmit = (event) => {
@@ -37,15 +42,20 @@ class Teams extends Component {
     const payload = {
       team_token: token.value
     }
-    PlayerService.doJoinTeam(payload).then((response) => {
-      const teamId = response.data.id
-      this.props.history.push(`/teams/${teamId}/dashboard`);
-      cogoToast.success('Team joined');
-    })
-    .catch((error) => {
-      const messages = error.response.data
-      cogoToast.error('Request Error: ' + messages);
-    })
+    this.props.startFetch();
+    PlayerService.doJoinTeam(payload)
+      .then((response) => {
+        const teamId = response.data.id
+        this.props.history.push(`/teams/${teamId}/dashboard`);
+        cogoToast.success('Team joined');
+      })
+      .catch((error) => {
+        const messages = error.response.data
+        cogoToast.error('Request Error: ' + messages);
+      })
+      .finally(() => {
+        this.props.endFetch();
+      })
   }
 
   renderTeamCards(teamPlayers) {
@@ -113,7 +123,9 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    saveTeamPlayers: (teamPlayers) => dispatch(saveTeamPlayers(teamPlayers))
+    saveTeamPlayers: (teamPlayers) => dispatch(saveTeamPlayers(teamPlayers)),
+    startFetch: () => dispatch(startFetch()),
+    endFetch: () => dispatch(endFetch())
   }
 }
 
