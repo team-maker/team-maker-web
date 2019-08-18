@@ -1,5 +1,6 @@
 const initialState = {
-  player: undefined
+  player: undefined,
+  teams: []
 }
 
 const playerReducer = (state = initialState, action) => {
@@ -9,10 +10,10 @@ const playerReducer = (state = initialState, action) => {
         ...state,
         player: action.payload.player
       }
-    case 'SAVE_TEAM_PLAYERS':
+    case 'SAVE_PLAYER_TEAMS':
       return {
         ...state,
-        teamPlayers: action.payload
+        teams: action.payload
       }
     default:
       return state;

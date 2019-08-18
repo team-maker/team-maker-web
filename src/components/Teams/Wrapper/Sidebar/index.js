@@ -39,7 +39,7 @@ class Sidebar extends Component {
               </li>
               <li className="mt-4">
                 <NavLink className="link" activeClassName="active" to={`/teams/${team.id}/invites`}>
-                  <i class="fas fa-envelope"></i>
+                  <i className="fas fa-envelope"></i>
                   <span>Invite</span>
                 </NavLink>
               </li>

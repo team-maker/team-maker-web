@@ -4,11 +4,11 @@ import PrivateRoute from '../../routes/PrivateRoute'
 import { TeamService } from '../../../services';
 import Sidebar from './Sidebar/index.js';
 import Player from './Players/index.js';
+import PlayerStats from './Players/stats/index.js';
 import Game from './Games/index.js';
 import Dashboard from './Dashboard/index.js';
 import Invite from './Invites/index.js';
 import Rules from './Rules/index.js';
-import { saveTeamPlayers } from '../../../actions/playerActions'
 import cogoToast from 'cogo-toast';
 import './styles.scss';
 
@@ -54,11 +54,12 @@ class Wrapper extends Component {
           team={team}
         />
         <div className="page-content">
-          <PrivateRoute path={`${match.path}/dashboard`} component={Dashboard} team={team} />
-          <PrivateRoute path={`${match.path}/players`} component={Player} team={team} />
-          <PrivateRoute path={`${match.path}/games`} component={Game} team={team} />
-          <PrivateRoute path={`${match.path}/rules`} component={Rules} team={team} />
-          <PrivateRoute path={`${match.path}/invites`} component={Invite} team={team} />
+          <PrivateRoute exact path={`${match.path}/dashboard`} component={Dashboard} team={team} />
+          <PrivateRoute exact path={`${match.path}/players`} component={Player} team={team} />
+          <PrivateRoute exact path={`${match.path}/players/:id/stats`} component={PlayerStats} team={team} />
+          <PrivateRoute exact path={`${match.path}/games`} component={Game} team={team} />
+          <PrivateRoute exact path={`${match.path}/rules`} component={Rules} team={team} />
+          <PrivateRoute exact path={`${match.path}/invites`} component={Invite} team={team} />
         </div>
       </div>
     )
@@ -67,15 +68,8 @@ class Wrapper extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    teamPlayers: state.playerReducer.teamPlayers,
     user: state.userReducer.user
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    saveTeamPlayers: (teamPlayers) => dispatch(saveTeamPlayers(teamPlayers))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Wrapper)
+export default connect(mapStateToProps, null)(Wrapper)

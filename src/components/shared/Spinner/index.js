@@ -10,8 +10,8 @@ export default class CustomInput extends Component {
         <Loader
           className="spinner"
           type="Oval"
-          height="140"
-          width="140"
+          height={140}
+          width={140}
         />
       </div>
     )

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Container, Card, Button, Form }  from 'react-bootstrap';
 import CustomInput from '../shared/CustomInput';
 import { PlayerService } from '../../services';
-import { saveTeamPlayers } from '../../actions/playerActions'
+import { savePlayerTeams } from '../../actions/playerActions'
 import { startFetch, endFetch } from '../../actions/generalActions'
 import cogoToast from 'cogo-toast';
 import './styles.scss';
@@ -12,14 +12,16 @@ import './styles.scss';
 class Teams extends Component {
 
   componentDidMount() {
-    this.getGetTeamPlayers();
+    this.getGetPlayerTeams();
   }
 
-  getGetTeamPlayers() {
+  getGetPlayerTeams() {
+    const playerId = this.props.user.player.id;
     this.props.startFetch();
-    PlayerService.doGetTeamPlayers()
+    PlayerService.doGetPlayerTeams(playerId)
       .then((response) => {
-        this.props.saveTeamPlayers(response.data);
+        console.log(response)
+        this.props.savePlayerTeams(response.data);
       }).catch((error) => {
         cogoToast.error('ERROR');
       })
@@ -58,17 +60,16 @@ class Teams extends Component {
       })
   }
 
-  renderTeamCards(teamPlayers) {
-    return teamPlayers.map((teamPlayer) => {
-      const team = teamPlayer.team
+  renderTeamCards(teams) {
+    return teams.map((team) => {
       return(
         <Link className="text-decoration-none" to={`/teams/${team.id}/dashboard`}>
           <Card className="team shadow">
             <Card.Body className="text-center">
               <h3 className="font-weight-bold mb-5">{ team.name }</h3>
               <h4 className="font-weight-bold mt-5">Click to visit Team Dashboard</h4>
-              <h5 className="font-weight-bold mt-5">{`Nº of Players: ${team.players.length}`}</h5>
-              <h5 className="font-weight-bold mt-5">{`Admin: ${team.players[0].first_name}`}</h5>
+              <h5 className="font-weight-bold mt-5">{`Nº of Players: ${team.team_players.length}`}</h5>
+              <h5 className="font-weight-bold mt-5">{`Admin: ${team.team_players[0].player.first_name}`}</h5>
             </Card.Body>
           </Card>
         </Link>
@@ -78,10 +79,10 @@ class Teams extends Component {
 
   render() {
     const {
-      teamPlayers
+      teams
     } = this.props;
 
-    const hasTeams = teamPlayers && teamPlayers.length !== 0;
+    const hasTeams = teams && teams.length !== 0;
     return (
       <div className='teams'>
         <Container>
@@ -107,7 +108,7 @@ class Teams extends Component {
            </Card>
            { 
               hasTeams && 
-              this.renderTeamCards(teamPlayers)
+              this.renderTeamCards(teams)
             }
         </Container>
       </div>
@@ -117,13 +118,14 @@ class Teams extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    teamPlayers: state.playerReducer.teamPlayers
+    teams: state.playerReducer.teams,
+    user: state.userReducer.user
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    saveTeamPlayers: (teamPlayers) => dispatch(saveTeamPlayers(teamPlayers)),
+    savePlayerTeams: (teams) => dispatch(savePlayerTeams(teams)),
     startFetch: () => dispatch(startFetch()),
     endFetch: () => dispatch(endFetch())
   }
