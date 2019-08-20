@@ -47,17 +47,23 @@ class PlayerStats extends Component {
         <Link to='/teams'>Back</Link>
         <h2 className="font-weight-bold border-bottom pb-3 mt-3">{`${teamPlayer.player.first_name} Stats`}</h2>
         <div class="row mt-4">
+          <div class="col-12 text-center">
+            <h3 className="font-weight-bold mb-4">Points</h3>
+            <h3 className="font-weight-bold border-bottom pb-3">{teamPlayer.points}</h3>
+          </div>
+        </div>
+        <div class="row mt-4">
           <div class="col-4">
-            <h3 className="font-weight-bold mb-4">Games Played</h3>
-            <h3 className="font-weight-bold">{teamPlayer.games_played}</h3>
+            <h4 className="font-weight-bold mb-4">Games Played</h4>
+            <h4 className="font-weight-bold">{teamPlayer.games_played}</h4>
           </div>
           <div class="col-4">
-            <h3 className="font-weight-bold mb-4">Goals Scored</h3>
-            <h3 className="font-weight-bold">{teamPlayer.goals}</h3>
+            <h4 className="font-weight-bold mb-4">Goals Scored</h4>
+            <h4 className="font-weight-bold">{teamPlayer.goals}</h4>
           </div>
           <div class="col-4">
-            <h3 className="font-weight-bold mb-4">Goals Conceded</h3>
-            <h3 className="font-weight-bold">{teamPlayer.goals_conceded}</h3>
+            <h4 className="font-weight-bold mb-4">Goals Conceded</h4>
+            <h4 className="font-weight-bold">{teamPlayer.goals_conceded}</h4>
           </div>
         </div>
       </div>
