@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login';
 import { connect } from 'react-redux'
 import { UserService, AuthenticationService } from '../../../services';
+import { startFetch, endFetch } from '../../../actions/generalActions'
 import { getGravatarImage } from '../../../utils';
 import { saveUser } from '../../../actions/userActions'
+import cogoToast from 'cogo-toast';
 import './styles.scss';
 
 class FacebookLoginButton extends Component {
@@ -13,16 +15,25 @@ class FacebookLoginButton extends Component {
       name: response.name,
       email: response.email
     }
-    UserService.doFacebookLogin(payload).then((response) => {
-      let dataResponse = response.data;
-      if (!dataResponse.user.photo) {
-        dataResponse.user.photo = getGravatarImage(dataResponse.user.email)
-      }
-      AuthenticationService.login(JSON.stringify(dataResponse.user), dataResponse.token);
-      this.props.saveUser(dataResponse);
-      console.log(this.props.redirectTo);
-      this.props.history.push(this.props.redirectTo);
-    })
+    this.props.startFetch();
+    UserService.doFacebookLogin(payload)
+      .then((response) => {
+        let dataResponse = response.data;
+        if (!dataResponse.user.photo) {
+          dataResponse.user.photo = getGravatarImage(dataResponse.user.email)
+        }
+        AuthenticationService.login(JSON.stringify(dataResponse.user), dataResponse.token);
+        this.props.saveUser(dataResponse);
+        if (this.props.history) {
+          this.props.history.push(this.props.redirectTo);
+        }
+      })
+      .catch((error) => {
+        cogoToast.error('ERROR');
+      })
+      .finally(() => {
+        this.props.endFetch();
+      })
   }
 
   render() {
@@ -47,6 +58,8 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
   return {
     saveUser: (user) => dispatch(saveUser(user)),
+    startFetch: () => dispatch(startFetch()),
+    endFetch: () => dispatch(endFetch())
   }
 }
 
