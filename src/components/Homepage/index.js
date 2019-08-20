@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { Container }  from 'react-bootstrap';
-import { addRedirect } from '../../actions/generalActions'
+import { addRedirect } from '../../actions/generalActions';
 import FacebookLoginButton from '../shared/FacebookLoginButton';
 import './styles.scss';
 
@@ -17,6 +18,11 @@ class Homepage extends Component {
   }
 
   render() {
+    const jwtToken = this.props.jwtToken;
+
+    if (jwtToken) {
+      return <Redirect to='/teams'/>
+    }
     return (
       <div className='homepage'>
         <Container className='content mt-5'>
@@ -34,4 +40,10 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Homepage)
+function mapStateToProps(state){
+  return {
+    jwtToken: state.userReducer.jwtToken,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Homepage)

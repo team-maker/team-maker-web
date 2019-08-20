@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Table from './table'
 import './styles.scss';
 
 class Player extends Component {
@@ -6,10 +7,11 @@ class Player extends Component {
   render() {
     const {
       team
-    } = this.props
+    } = this.props;
     return (
-      <div>
-        <h2 className="font-weight-bold">Players</h2>
+      <div className="players">
+        <h2 className="font-weight-bold mb-4">Players</h2>
+        <Table team={team} history={this.props.history}/>
       </div>
     )
   }

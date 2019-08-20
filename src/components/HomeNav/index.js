@@ -103,7 +103,6 @@ class HomeNav extends Component {
             handleLogin={this.handleLogin}
             handleLoginClose={this.handleLoginClose} 
             show={showLoginModal}
-            history={this.props.history}
           />
         }
       </>

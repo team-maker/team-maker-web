@@ -1,7 +1,7 @@
-export function saveTeamPlayers(teamPlayers){
+export function savePlayerTeams(teams){
   return {
-    type: 'SAVE_TEAM_PLAYERS',
-    payload: teamPlayers
+    type: 'SAVE_PLAYER_TEAMS',
+    payload: teams
   }
 }
 export function savePlayer(player){

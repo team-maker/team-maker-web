@@ -10,8 +10,8 @@ export const PlayerService = {
     });
   },
 
-  doGetTeamPlayers() {
-    const url ='/api/team-players';
+  doGetPlayerTeams(playerId) {
+    const url = `/api/players/${playerId}/teams`;
     return axios({
       method: 'get',
       url: url
