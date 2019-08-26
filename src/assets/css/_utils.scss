@@ -19,3 +19,12 @@
     width: 100%;
   }
 }
+
+@mixin table {
+  color: white;
+
+  .tr-hover:hover {
+    color: $color-secondary;
+    cursor: pointer;
+  }
+}

@@ -39,12 +39,16 @@ class PlayerStats extends Component {
       teamPlayer
     } = this.state;
 
+    const {
+      team
+    } = this.props;
+
     if (teamPlayer === undefined) {
       return <></>
     }
     return (
       <div className="player-stats">
-        <Link to='/teams'>Back</Link>
+        <Link to={`/teams/${team.id}/players`}>Back</Link>
         <h2 className="font-weight-bold border-bottom pb-3 mt-3">{`${teamPlayer.player.first_name} Stats`}</h2>
         <div class="row mt-4">
           <div class="col-12 text-center">

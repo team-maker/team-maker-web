@@ -1,12 +1,8 @@
 @import '../../../../index.scss';
 
 .players {
-  .players-table {
-    color: white;
 
-    .tr-hover:hover {
-      color: $color-secondary;
-      cursor: pointer;
-    }
+  .players-table {
+    @include table;
   }
 }

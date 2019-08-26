@@ -10,7 +10,7 @@ class Player extends Component {
     } = this.props;
     return (
       <div className="players">
-        <h2 className="font-weight-bold mb-4">Players</h2>
+        <h2 className="font-weight-bold mb-4">{`${team.name} Players`}</h2>
         <Table team={team} history={this.props.history}/>
       </div>
     )

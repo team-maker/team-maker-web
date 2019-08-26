@@ -1,1 +1,7 @@
 @import '../../../../index.scss';
+
+.games {
+  .games-table {
+    @include table;
+  }
+}

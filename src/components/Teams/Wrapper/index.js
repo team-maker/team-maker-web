@@ -5,6 +5,7 @@ import { TeamService } from '../../../services';
 import Sidebar from './Sidebar/index.js';
 import Player from './Players/index.js';
 import PlayerStats from './Players/stats/index.js';
+import GameSummary from './Games/summary/index.js';
 import Game from './Games/index.js';
 import Dashboard from './Dashboard/index.js';
 import Invite from './Invites/index.js';
@@ -58,6 +59,7 @@ class Wrapper extends Component {
           <PrivateRoute exact path={`${match.path}/players`} component={Player} team={team} />
           <PrivateRoute exact path={`${match.path}/players/:id/stats`} component={PlayerStats} team={team} />
           <PrivateRoute exact path={`${match.path}/games`} component={Game} team={team} />
+          <PrivateRoute exact path={`${match.path}/games/:id`} component={GameSummary} team={team} />
           <PrivateRoute exact path={`${match.path}/rules`} component={Rules} team={team} />
           <PrivateRoute exact path={`${match.path}/invites`} component={Invite} team={team} />
         </div>
