@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
+import TeamLineup from '../TeamLineup';
 import { GameService } from '../../../../../services';
 import { startFetch, endFetch } from '../../../../../actions/generalActions'
 import cogoToast from 'cogo-toast';
@@ -46,10 +47,12 @@ class GameSummary extends Component {
     if (game === undefined) {
       return <></>
     }
+    
     return (
-      <div className="player-stats">
+      <div className="game-details">
         <Link to={`/teams/${team.id}/games`}>Back</Link>
         <h2 className="font-weight-bold border-bottom pb-3 mt-3">{`Game at ${game.date}`}</h2>
+        <TeamLineup homeTeam={game.home_team} awayTeam={game.away_team}/>
       </div>
     )
   }
