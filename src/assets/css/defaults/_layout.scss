@@ -1,0 +1,45 @@
+.content-wrapper {
+  @include background-cover;
+  @include background-color;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  color: white;
+
+  * {
+    z-index: 1;
+  }
+
+  &.toggled {
+    .sidebar-wrapper {
+      left: 0px;
+      top: 0px;
+    }
+
+    #show-sidebar {
+      left: -40px;
+    }
+  }
+
+  $content-margin: calc(#{$sidebar-width} + 20px);
+  @media screen and (min-width: 768px) {
+    &.toggled .page-content {
+      margin-left: $content-margin;
+      margin-top: $sidebar-padding-y;
+      margin-right: 40px;
+    }
+  }
+  
+  .page-content {
+    display: inline-block;
+    width: calc(100% - #{$content-margin} - 20px);
+    padding-left: 0px;
+    overflow-x: hidden;
+
+    .content {
+      padding: 20px 40px;
+      background: rgba(0,0,0,0.35);
+      border-radius: 10px;
+    }
+  }
+}

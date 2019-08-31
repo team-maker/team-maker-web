@@ -1,0 +1,40 @@
+@import '../../../index.scss';
+
+.content-navbar {
+  background: $grey;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  flex-flow: row wrap;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .back-link {
+    color: $active-link-color;
+  }
+  
+  .navbar-nav {
+    border-top: 2px solid #676775;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    .nav-link {
+      color: #676775;
+      text-decoration: none;
+      width: 100%;
+      border-right: 2px solid #676775;
+      text-align: center;
+
+      &.active, &:hover {
+        color: $active-link-color;
+      }
+
+      &:last-child {
+        border-right: 0;
+      }
+    }
+  }
+}

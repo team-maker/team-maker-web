@@ -79,7 +79,7 @@ class Profile extends Component {
     } = this.props.user;
     
     return (
-      <div className='profile'>
+      <div className='content profile'>
         <Container className='mt-5'>
           <img src={photo} alt='User profile' className="image d-flex mb-5 border border-white rounded-circle" />
           <Form className="form" onSubmit={this.handleSubmit}>

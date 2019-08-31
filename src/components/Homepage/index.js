@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Container }  from 'react-bootstrap';
 import { addRedirect } from '../../actions/generalActions';
+import HomeNav from './HomeNav'
 import FacebookLoginButton from '../shared/FacebookLoginButton';
 import './styles.scss';
 
@@ -21,15 +22,18 @@ class Homepage extends Component {
     const jwtToken = this.props.jwtToken;
 
     if (jwtToken) {
-      return <Redirect to='/teams'/>
+      return <Redirect to='/player/teams'/>
     }
     return (
+      <>
+      <HomeNav/>
       <div className='homepage'>
         <Container className='content mt-5'>
           <h1 className="mb-3 text-uppercase font-weight-bold">Join Your Friends and Create your own League!</h1>
           <FacebookLoginButton history={this.props.history}/>
         </Container>
       </div>
+      </>
     )
   }
 }

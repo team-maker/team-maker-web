@@ -17,4 +17,21 @@ export const GameService = {
       url: url
     });
   },
+
+  doGetGamePoints(teamId, gameId) {
+    const url = `/api/teams/${teamId}/games/${gameId}/points`;
+    return axios({
+      method: 'get',
+      url: url
+    });
+  },
+
+  doGetGameGoals(teamId, gameId) {
+    const url = `/api/teams/${teamId}/games/${gameId}/goals`;
+    return axios({
+      method: 'get',
+      url: url
+    });
+  },
+  
 };
