@@ -45,7 +45,7 @@ class GameWrapper extends Component {
         url: `/teams/${team.id}/games/${game.id}/summary`
       },
       {
-        title: 'Lineup',
+        title: 'Teams',
         url: `/teams/${team.id}/games/${game.id}/lineup`
       },
       {

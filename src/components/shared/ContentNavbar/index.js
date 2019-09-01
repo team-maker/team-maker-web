@@ -14,7 +14,7 @@ export default class ContentNavbar extends Component {
     } = this.props;
     return (
       <Navbar className='content-navbar p-0' collapseOnSelect expand="lg">
-        <div class="header p-3">
+        <div className="header p-3">
           <h4 className="m-0">{title}</h4>
           {
             backLink &&
@@ -28,7 +28,7 @@ export default class ContentNavbar extends Component {
             <Nav>
               {
                 links.map((link, index) => (
-                    <NavLink className="nav-link px-5 py-2" to={link.url}>
+                    <NavLink key={index} className="nav-link px-5 py-2" to={link.url}>
                       {link.title}
                     </NavLink>
                   )

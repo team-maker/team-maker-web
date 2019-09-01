@@ -6,10 +6,6 @@
   flex-direction: column;
   color: white;
 
-  * {
-    z-index: 1;
-  }
-
   &.toggled {
     .sidebar-wrapper {
       left: 0px;

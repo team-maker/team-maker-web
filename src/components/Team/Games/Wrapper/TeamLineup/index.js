@@ -4,27 +4,27 @@ import './styles.scss';
 
 const POSITIONS = [
   {
-    z: '410px',
+    z: '280px',
     x: '0px'
   },
   {
-    z: '300px',
+    z: '160px',
     x: '-100px'
   },
   {
-    z: '300px',
+    z: '160px',
     x: '100px'
   },
   {
-    z: '50px',
+    z: '0px',
     x: '-150px'
   },
   {
-    z: '50px',
+    z: '0px',
     x: '150px'
   },
   {
-    z: '100px',
+    z: '50px',
     x: '0px'
   },
   {
@@ -38,21 +38,37 @@ const POSITIONS = [
 ]
 
 export default class TeamLineup extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { 
+      selectedTeam: this.props.game.home_team
+    }
+  }
+
+  selectedTeam = (team) => {
+    console.log(team)
+    this.setState({selectedTeam: team})
+  }
 
   render() {
     const {
       game,
     } = this.props;
+    const selectedTeam = this.state.selectedTeam;
 
     const homeTeam = game.home_team
     const awayTeam = game.away_team
     return (
       <div className="lineup">
+        <div className="js-switcher switcher">
+          <button onClick={() => this.selectedTeam(homeTeam)} className={'js-switch switch-btn ' + (homeTeam === selectedTeam ? 'disabled' : '')}>HOME</button>
+          <button onClick={() => this.selectedTeam(awayTeam)} className={'js-switch switch-btn ' + (awayTeam === selectedTeam ? 'disabled' : '')}>AWAY</button>
+        </div>
         <div className="js-stage stage texture">
           <div className="js-world world">
             <div className="team js-team">
               {
-                homeTeam.team_group_players.map((player, index) => (
+                selectedTeam.team_group_players.map((player, index) => (
                     <Player key={player.id} teamGroupPlayer={player} positions={POSITIONS[index]}/>
                   )
                 )

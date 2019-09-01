@@ -25,12 +25,12 @@ class Sidebar extends Component {
     return (
       <nav id="sidebar" className="sidebar-wrapper visible">
         <div className="sidebar-content">
-          <div class="sidebar-header mb-2">
-            <div class="user-pic mb-1">
-              <img class="img-responsive rounded-circle" src={photo} alt="Current User"/>
+          <div className="sidebar-header mb-2">
+            <div className="user-pic mb-1">
+              <img className="img-responsive rounded-circle" src={photo} alt="Current User"/>
             </div>
-            <div class="user-info">
-              <span class="user-name">{user.first_name}
+            <div className="user-info">
+              <span className="user-name">{user.first_name}
                 <strong>{` ${user.last_name}`}</strong>
               </span>
             </div>
@@ -65,7 +65,7 @@ class Sidebar extends Component {
                 )
               )}
               <li className="mb-2">
-                <NavLink onClick={() => this.handleLogout()}>
+                <NavLink onClick={() => this.handleLogout()} to="/">
                   <i className='fa fa-sign-out-alt'></i>
                   <span>Logout</span>
                 </NavLink>

@@ -26,7 +26,7 @@ class Points extends Component {
         this.setState({playerPoints: response.data});
       })
       .catch((error) => {
-        cogoToast.error('ERROR');
+        cogoToast.error('ERROR', { position: 'bottom-left' });
       })
       .finally(() => {
         this.props.endFetch();

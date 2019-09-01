@@ -26,7 +26,7 @@ class Summary extends Component {
         this.setState({goals: response.data});
       })
       .catch((error) => {
-        cogoToast.error('ERROR');
+        cogoToast.error('ERROR', { position: 'bottom-left' });
       })
       .finally(() => {
         this.props.endFetch();

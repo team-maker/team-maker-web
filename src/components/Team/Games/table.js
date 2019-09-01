@@ -5,7 +5,7 @@ class GamesTable extends Component {
 
   rowClick = (gameId) => {
     const teamId = this.props.team.id;
-    this.props.history.push(`/teams/${teamId}/games/${gameId}`);
+    this.props.history.push(`/teams/${teamId}/games/${gameId}/summary`);
   }
 
   render() {
