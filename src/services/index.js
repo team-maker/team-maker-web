@@ -4,3 +4,4 @@ export { UserService } from './user';
 export { PlayerService } from './player';
 export { TeamService } from './team';
 export { TeamPlayerService } from './teamPlayer';
+export { GameService } from './game';

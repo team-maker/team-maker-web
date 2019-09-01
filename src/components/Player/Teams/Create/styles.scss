@@ -1,19 +1,14 @@
-@import '../../../index.scss';
+@import '../../../../index.scss';
 
-.profile {
+.team-create {
   @include background-cover;
-  @include background-color;
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
   color: white;
   align-items: center;
 
-  .image {
-    margin: auto; 
-  }
-  
   .form {
     display: flex;
     justify-content: center;
@@ -21,9 +16,10 @@
     align-items: center;
 
     .form-group {
-      width: 60%;
+     width: 60%;
     }
 
   }
+  
   
 }

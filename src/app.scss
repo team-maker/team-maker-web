@@ -6,7 +6,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   .content-wrapper {
-    margin-top: $nav-height;
-    min-height: calc(100vh - #{$nav-height});
+    height: 100vh;
   }
 }
