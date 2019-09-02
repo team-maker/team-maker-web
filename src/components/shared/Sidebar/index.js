@@ -65,7 +65,7 @@ class Sidebar extends Component {
                 )
               )}
               <li className="mb-2">
-                <NavLink onClick={() => this.handleLogout()} to="/">
+                <NavLink exact onClick={() => this.handleLogout()} to="/">
                   <i className='fa fa-sign-out-alt'></i>
                   <span>Logout</span>
                 </NavLink>
