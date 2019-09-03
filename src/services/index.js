@@ -6,3 +6,5 @@ export { TeamService } from './team';
 export { TeamPlayerService } from './teamPlayer';
 export { GameService } from './game';
 export { RulesService } from './rules';
+export { TeamGroupPlayerService } from './teamGroupPlayer';
+
