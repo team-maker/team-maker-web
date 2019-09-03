@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { GameService } from '../../../../../services';
+import Table from './table'
+import { TeamGroupPlayerService } from '../../../../../services';
 import { startFetch, endFetch } from '../../../../../actions/generalActions'
 import cogoToast from 'cogo-toast';
 import './styles.scss';
@@ -9,21 +10,21 @@ class Points extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      playerPoints: []
+      teamGroupPlayers: []
     }
    }
 
   componentDidMount() {
     const gameId = this.props.game.id;
     const teamId = this.props.team.id;
-    this.doGetGamePoints(teamId, gameId);
+    this.doGetTeamGroupPlayers(teamId, gameId);
   }
 
-  doGetGamePoints(teamId, gameId) {
+  doGetTeamGroupPlayers(teamId, gameId) {
     this.props.startFetch();
-    GameService.doGetGamePoints(teamId, gameId)
+    TeamGroupPlayerService.doGetTeamGroupPlayers(teamId, gameId)
       .then((response) => {
-        this.setState({playerPoints: response.data});
+        this.setState({teamGroupPlayers: response.data});
       })
       .catch((error) => {
         cogoToast.error('ERROR', { position: 'bottom-left' });
@@ -35,7 +36,7 @@ class Points extends Component {
 
   render() {
     const {
-      playerPoints
+      teamGroupPlayers
     } = this.state;
 
     const {
@@ -44,8 +45,8 @@ class Points extends Component {
     } = this.props;
     
     return (
-      <div class="summary">
-        <h1>Points</h1>
+      <div class="player-points">
+        <Table teamGroupPlayers={teamGroupPlayers}/>
       </div>
     )
   }
