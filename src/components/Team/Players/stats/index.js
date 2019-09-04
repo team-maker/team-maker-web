@@ -55,7 +55,7 @@ class PlayerStats extends Component {
           <div class="row mt-4">
             <div class="col-12 text-center">
               <h3 className="font-weight-bold mb-4">Points</h3>
-              <h3 className="font-weight-bold border-bottom pb-3">{teamPlayer.points}</h3>
+              <h3 className="font-weight-bold border-bottom pb-3">{teamPlayer.points_total}</h3>
             </div>
           </div>
           <div class="row mt-4">
@@ -65,11 +65,11 @@ class PlayerStats extends Component {
             </div>
             <div class="col-4">
               <h4 className="font-weight-bold mb-4">Goals Scored</h4>
-              <h4 className="font-weight-bold">{teamPlayer.goals}</h4>
+              <h4 className="font-weight-bold">{teamPlayer.goals_scored}</h4>
             </div>
             <div class="col-4">
-              <h4 className="font-weight-bold mb-4">Goals Conceded</h4>
-              <h4 className="font-weight-bold">{teamPlayer.goals_conceded}</h4>
+              <h4 className="font-weight-bold mb-4">Own Goals</h4>
+              <h4 className="font-weight-bold">{teamPlayer.own_goals}</h4>
             </div>
           </div>
         </div>

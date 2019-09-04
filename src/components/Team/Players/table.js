@@ -29,7 +29,7 @@ class Table extends Component {
           {
             teamPlayers.map(teamPlayer => (
               <tr className="tr-hover" key={teamPlayer.id} onClick={() => this.rowClick(teamPlayer.id)}>
-                <th scope="row">{teamPlayer.player.first_name + ' ' + teamPlayer.player.last_name}</th>
+                <td scope="row">{teamPlayer.player.first_name + ' ' + teamPlayer.player.last_name}</td>
                 <td>{teamPlayer.points}</td>
                 <td>{teamPlayer.points}</td>
                 <td>{teamPlayer.points}</td>
