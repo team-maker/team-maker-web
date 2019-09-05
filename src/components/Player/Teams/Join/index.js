@@ -49,7 +49,7 @@ class Join extends Component {
     this.props.startFetch();
     PlayerService.doJoinTeam(payload)
       .then((response) => {
-        const teamId = response.data.team.id
+        const teamId = response.data.team_id
         this.props.history.push(`/teams/${teamId}/dashboard`);
         cogoToast.success('Team joined');
       })

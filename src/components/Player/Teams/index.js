@@ -20,7 +20,6 @@ class Teams extends Component {
     this.props.startFetch();
     PlayerService.doGetPlayerTeams(playerId)
       .then((response) => {
-        console.log(response)
         this.props.savePlayerTeams(response.data);
       }).catch((error) => {
         cogoToast.error('ERROR');
@@ -47,7 +46,7 @@ class Teams extends Component {
     this.props.startFetch();
     PlayerService.doJoinTeam(payload)
       .then((response) => {
-        const teamId = response.data.id
+        const teamId = response.data.team_id
         this.props.history.push(`/teams/${teamId}/dashboard`);
         cogoToast.success('Team joined');
       })

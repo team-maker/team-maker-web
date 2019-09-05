@@ -24,8 +24,8 @@ class Table extends Component {
           {
             teamGroupPlayers.map(teamGroupPlayer => (
               <tr className="tr-hover" key={teamGroupPlayer.id} onClick={() => this.rowClick(teamGroupPlayer.id)}>
-                <td scope="row">{teamGroupPlayer.team_player.player.first_name + ' ' + teamGroupPlayer.team_player.player.last_name}</td>
-                <td scope="row">{teamGroupPlayer.points_amount}</td>
+                <td>{teamGroupPlayer.team_player.player.first_name + ' ' + teamGroupPlayer.team_player.player.last_name}</td>
+                <td>{teamGroupPlayer.points_amount}</td>
               </tr>
             ))
           }

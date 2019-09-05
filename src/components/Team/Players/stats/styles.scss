@@ -1,5 +1,18 @@
 @import '../../../../index.scss';
 
 .player-stats {
+
+  .player-stats__points-wrapper {
+    display: flex;
+    justify-content: center;
+  }
   
+  .player-stats__games-wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    .player-stats__games-wrapper__stat {
+      text-align: center;
+    }
+  }
 }

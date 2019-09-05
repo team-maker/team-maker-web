@@ -25,5 +25,13 @@ export const TeamService = {
       method: 'get',
       url: url
     });
+  },
+
+  doGetCurrentTeamPlayer(teamId) {
+    const url = `/api/teams/${teamId}/current-team-player`;
+    return axios({
+      method: 'get',
+      url: url
+    });
   }
 };
