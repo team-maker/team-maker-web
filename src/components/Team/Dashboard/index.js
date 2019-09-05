@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
+import GameStats from '../Players/stats/gameStats';
+import ContentNavbar from '../../shared/ContentNavbar';
 import './styles.scss';
 
 class Dashboard extends Component {
 
   render() {
     const {
-      team
+      team,
+      teamPlayer
     } = this.props
     return (
       <div>
-        <h2 className="font-weight-bold">Dashboard</h2>
+
+        <ContentNavbar
+          title={`${team.name} Dashboard`}
+          backLink={`/player/teams`}
+        />
+        <GameStats teamPlayer={teamPlayer}/>
       </div>
     )
   }
 }
 
 export default (Dashboard)
-

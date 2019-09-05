@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import GameStats from './gameStats';
 import { TeamPlayerService } from '../../../../services';
 import ContentNavbar from '../../../shared/ContentNavbar';
 import { startFetch, endFetch } from '../../../../actions/generalActions'
@@ -51,28 +52,7 @@ class PlayerStats extends Component {
           title={`${teamPlayer.player.first_name} Stats`}
           backLink={`/teams/${team.id}/players`}
         />
-        <div className="content player-stats">
-          <div class="row mt-4">
-            <div class="col-12 text-center">
-              <h3 className="font-weight-bold mb-4">Points</h3>
-              <h3 className="font-weight-bold border-bottom pb-3">{teamPlayer.points_total}</h3>
-            </div>
-          </div>
-          <div class="row mt-4">
-            <div class="col-4">
-              <h4 className="font-weight-bold mb-4">Games Played</h4>
-              <h4 className="font-weight-bold">{teamPlayer.games_played}</h4>
-            </div>
-            <div class="col-4">
-              <h4 className="font-weight-bold mb-4">Goals Scored</h4>
-              <h4 className="font-weight-bold">{teamPlayer.goals_scored}</h4>
-            </div>
-            <div class="col-4">
-              <h4 className="font-weight-bold mb-4">Own Goals</h4>
-              <h4 className="font-weight-bold">{teamPlayer.own_goals}</h4>
-            </div>
-          </div>
-        </div>
+        <GameStats teamPlayer={teamPlayer}/>
       </>
     )
   }

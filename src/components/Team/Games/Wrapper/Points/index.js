@@ -39,11 +39,6 @@ class Points extends Component {
       teamGroupPlayers
     } = this.state;
 
-    const {
-      team,
-      game
-    } = this.props;
-    
     return (
       <div class="player-points">
         <Table teamGroupPlayers={teamGroupPlayers}/>

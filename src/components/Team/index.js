@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PrivateRoute from '../routes/PrivateRoute'
 import { TeamService } from '../../services';
+import { startFetch, endFetch } from '../../actions/generalActions'
 import Sidebar from '../shared/Sidebar/index.js';
 import Player from './Players/index.js';
 import PlayerStats from './Players/stats/index.js';
@@ -17,21 +18,40 @@ class Team extends Component {
   constructor(props) {
     super(props)
     this.state = { 
-      team: undefined
+      team: undefined,
+      teamPlayer: undefined
     }
    }
 
   componentDidMount() {
     const teamId = this.props.match.params.id;
-    this.getGetTeam(teamId);
+    this.getTeam(teamId);
+    this.getCurrentTeamPlayer(teamId);
   }
 
-  getGetTeam(teamId) {
+  getTeam(teamId) {
+    this.props.startFetch();
     TeamService.doGetTeam(teamId).then((response) => {
       this.setState({team: response.data});
     })
     .catch((error) => {
       cogoToast.error('ERROR');
+    })
+    .finally(() => {
+      this.props.endFetch();
+    })
+  }
+
+  getCurrentTeamPlayer(teamId) {
+    this.props.startFetch();
+    TeamService.doGetCurrentTeamPlayer(teamId).then((response) => {
+      this.setState({teamPlayer: response.data});
+    })
+    .catch((error) => {
+      cogoToast.error('ERROR');
+    })
+    .finally(() => {
+      this.props.endFetch();
     })
   }
 
@@ -77,7 +97,8 @@ class Team extends Component {
 
   render() {
     const {
-      team
+      team,
+      teamPlayer
     } = this.state;
 
     const {
@@ -98,13 +119,13 @@ class Team extends Component {
           shortcutLinks={shortcutLinks}
         />
         <div className="page-content">
-          <PrivateRoute exact path={`${match.path}/dashboard`} component={Dashboard} team={team} />
-          <PrivateRoute exact path={`${match.path}/players`} component={Player} team={team} />
-          <PrivateRoute exact path={`${match.path}/players/:id/stats`} component={PlayerStats} team={team} />
-          <PrivateRoute exact path={`${match.path}/games`} component={Game} team={team} />
-          <PrivateRoute path={`${match.path}/games/:id`} component={GameWrapper} team={team} />
-          <PrivateRoute exact path={`${match.path}/rules`} component={Rules} team={team} />
-          <PrivateRoute exact path={`${match.path}/invites`} component={Invite} team={team} />
+          <PrivateRoute exact path={`${match.path}/dashboard`} component={Dashboard} team={team} teamPlayer={teamPlayer} />
+          <PrivateRoute exact path={`${match.path}/players`} component={Player} team={team} teamPlayer={teamPlayer} />
+          <PrivateRoute exact path={`${match.path}/players/:id/stats`} component={PlayerStats} team={team} teamPlayer={teamPlayer} />
+          <PrivateRoute exact path={`${match.path}/games`} component={Game} team={team} teamPlayer={teamPlayer} />
+          <PrivateRoute path={`${match.path}/games/:id`} component={GameWrapper} team={team} teamPlayer={teamPlayer} />
+          <PrivateRoute exact path={`${match.path}/rules`} component={Rules} team={team} teamPlayer={teamPlayer} />
+          <PrivateRoute exact path={`${match.path}/invites`} component={Invite} team={team} teamPlayer={teamPlayer} />
         </div>
       </div>
     )
@@ -117,4 +138,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, null)(Team)
+function mapDispatchToProps(dispatch) {
+  return {
+    startFetch: () => dispatch(startFetch()),
+    endFetch: () => dispatch(endFetch())
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Team)
