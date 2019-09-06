@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Container }  from 'react-bootstrap';
+import { Container, Button }  from 'react-bootstrap';
 import { addRedirect } from '../../actions/generalActions';
 import { saveUser, doLogout } from '../../actions/userActions'
 import { UserService, AuthenticationService } from '../../services';
@@ -117,6 +117,9 @@ class Homepage extends Component {
           <Container className='content mt-5'>
             <h1 className="mb-3 text-uppercase font-weight-bold">Join Your Friends and Create your own League!</h1>
             <FacebookLoginButton history={this.props.history}/>
+            <Button className="btn-secondary ml-3" onClick={() => this.handleRegisterShow()}>
+              Register
+            </Button>
           </Container>
         </div>
         <LoginModal 
