@@ -39,14 +39,38 @@ class Summary extends Component {
     } = this.state;
 
     const {
-      team,
       game
     } = this.props;
     
+    const homeTeam = game.home_team;
+    const awayTeam = game.away_team;
     return (
-      <div class="summary">
-        <h1>Summary</h1>
+      <>
+      <div className="summary p-2 border-bottom">
+        <div className="summary__teams">
+          <h3 className="font-weight-bold m-0" >Home Team</h3>
+        </div>
+        <div className="summary__teams summary__teams--score">
+          <h2 className="font-weight-bold summary__teams__title">{`${homeTeam.goals} - ${awayTeam.goals}`}</h2>
+        </div>
+        <div className="summary__teams">
+          <h3 className="font-weight-bold m-0" >Away Team</h3>
+        </div>
       </div>
+      <div className="goals py-4">
+        {
+          goals.map(goal => (
+            <h4 
+              key={goal.id}
+              className={"py-2 goals__scorer " + (goal.scorer.team_group_id === homeTeam.id ? 'goals__scorer--left' : 'goals__scorer--right')}
+              >
+                <i className="fa fa-futbol mr-2"></i>
+                {`${goal.scorer.team_player.player.first_name} ${goal.scorer.team_player.player.last_name}`}
+            </h4>
+          ))
+        }
+      </div>
+      </>
     )
   }
 }
