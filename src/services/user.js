@@ -11,6 +11,15 @@ export const UserService = {
     });
   },
 
+  doRegister(payload) {
+    const url ='/api/users';
+    return axios({
+      method: 'post',
+      url: url, 
+      data: payload
+    });
+  },
+
   doFacebookLogin(payload) {
     const url ='/api/facebook-login';
     return axios({
