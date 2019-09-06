@@ -12,7 +12,6 @@ class Dashboard extends Component {
     } = this.props
     return (
       <div>
-
         <ContentNavbar
           title={`${team.name} Dashboard`}
           backLink={`/player/teams`}
