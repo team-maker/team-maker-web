@@ -7,28 +7,25 @@ import TeamLineup from './TeamLineup';
 import Points from './Points';
 import { GameService } from '../../../../services';
 import { startFetch, endFetch } from '../../../../actions/generalActions'
+import { saveCurrentGame } from '../../../../actions/gameActions'
 import cogoToast from 'cogo-toast';
 import './styles.scss';
 
 class GameWrapper extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { 
-      game: undefined
-    }
-   }
 
   componentDidMount() {
-    const gameId = this.props.match.params.id;
-    const teamId = this.props.team.id;
-    this.getGetGame(teamId, gameId);
+    if (!this.props.game) {
+      const gameId = this.props.match.params.id;
+      const teamId = this.props.team.id;
+      this.getGetGame(teamId, gameId);
+    }
   }
 
   getGetGame(teamId, gameId) {
     this.props.startFetch();
     GameService.doGetGame(teamId, gameId)
       .then((response) => {
-        this.setState({game: response.data});
+        this.props.saveCurrentGame(response.data);
       })
       .catch((error) => {
         cogoToast.error('ERROR');
@@ -59,10 +56,9 @@ class GameWrapper extends Component {
   render() {
     const {
       team,
-      match
+      match,
+      game
     } = this.props;
-
-    const game = this.state.game;
 
     if (!game) {
       return <></>
@@ -85,11 +81,18 @@ class GameWrapper extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+const mapStateToProps = (state) => {
   return {
-    startFetch: () => dispatch(startFetch()),
-    endFetch: () => dispatch(endFetch())
+    game: state.gameReducer.currentGame,
   }
 }
 
-export default connect(null, mapDispatchToProps)(GameWrapper)
+function mapDispatchToProps(dispatch) {
+  return {
+    startFetch: () => dispatch(startFetch()),
+    endFetch: () => dispatch(endFetch()),
+    saveCurrentGame: (game) => dispatch(saveCurrentGame(game))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameWrapper)
