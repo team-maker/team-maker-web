@@ -18,6 +18,14 @@ export const GameService = {
     });
   },
 
+  doMarkGameFinished(teamId, gameId) {
+    const url = `/api/teams/${teamId}/games/${gameId}/finish`;
+    return axios({
+      method: 'put',
+      url: url
+    });
+  },
+
   doGetGamePoints(teamId, gameId) {
     const url = `/api/teams/${teamId}/games/${gameId}/points`;
     return axios({
