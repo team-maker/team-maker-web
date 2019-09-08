@@ -40,7 +40,7 @@ class Points extends Component {
     } = this.state;
 
     return (
-      <div class="player-points">
+      <div className="player-points">
         <Table teamGroupPlayers={teamGroupPlayers}/>
       </div>
     )

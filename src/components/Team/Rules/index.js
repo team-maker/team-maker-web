@@ -45,7 +45,7 @@ class Rules extends Component {
         <div className="wrapper">
           {
             rules.map(teamRule => (
-              <RuleCard teamRule={teamRule}/>
+              <RuleCard key={teamRule.id} teamRule={teamRule}/>
             ))
           }
         </div>

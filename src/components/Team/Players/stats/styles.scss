@@ -9,10 +9,14 @@
   
   .player-stats__games-wrapper {
     display: flex;
-    justify-content: space-between;
 
     .player-stats__games-wrapper__stat {
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      flex-basis: 100%;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
     }
   }
 }

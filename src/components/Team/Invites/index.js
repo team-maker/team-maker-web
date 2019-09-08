@@ -32,6 +32,7 @@ class Invite extends Component {
             className="mr-1"
             ref={(textarea) => this.textArea = textarea}
             value={this.joinLink(team.token)}
+            readOnly={true}
           />
           {
              /* Logical shortcut for only displaying the 

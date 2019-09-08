@@ -105,7 +105,9 @@ class Profile extends Component {
             <label>Rate your skill Level</label>
             <Rating
               initialRating={this.state.rating}
-              className="mb-4"
+              empty="custom-empty" 
+              full="custom-full"
+              className="mb-4 rating"
               stop={10}
               onChange={(value) => this.ratingChange(value)}
             />

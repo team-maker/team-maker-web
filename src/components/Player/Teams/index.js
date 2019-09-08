@@ -62,7 +62,7 @@ class Teams extends Component {
   renderTeamCards(teams) {
     return teams.map((team) => {
       return(
-        <Link className="text-decoration-none" to={`/teams/${team.id}/dashboard`}>
+        <Link key={team.id} className="text-decoration-none" to={`/teams/${team.id}/dashboard`}>
           <Card className="team shadow">
             <Card.Body className="text-center">
               <h3 className="font-weight-bold mb-5">{ team.name }</h3>
