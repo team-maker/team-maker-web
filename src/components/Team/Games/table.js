@@ -38,7 +38,7 @@ class GamesTable extends Component {
                     'Game not finished yet'
                   }
                 </td>
-                <th>
+                <td>
                   {
                     game.finished ?
                     game.mvps.map(mvp => (
@@ -46,13 +46,13 @@ class GamesTable extends Component {
                         <span className="mr-2 ">
                           {`${mvp.team_player.player.first_name} ${mvp.team_player.player.last_name}`}
                         </span>
-                        <Badge className="ranking-badge ranking-badge--golden" width={30} height={30} />
+                        <Badge className="ranking-badge ranking-badge--gold" width={30} height={30} />
                       </div>
                     ))
                     :
                     'Game not finished yet'
                   }
-                </th>
+                </td>
               </tr>
             ))
           }

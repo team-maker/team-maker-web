@@ -41,7 +41,7 @@ class Player extends Component {
     }
     const links = this.getSidebarLinks();
     return (
-      <div className={`content-wrapper toggled`}>
+      <div className={`player content-wrapper toggled`}>
         <Sidebar 
           user={user}
           links={links}

@@ -1,6 +1,7 @@
 @import '../../../index.scss';
 
 .games {
+  @include page-content;
   .games-table {
     @include table;
   }
