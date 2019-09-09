@@ -141,6 +141,12 @@
   .switch-btn:last-child {
     border-radius: 0 10px 10px 0;
   }
+
+  .switch-btn:focus {
+    outline: none;
+  }
+
+  
   .team {
     position: absolute;
     top: 0;

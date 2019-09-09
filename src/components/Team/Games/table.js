@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ReactComponent as Badge } from '../../../assets/images/ranking_badge.svg'
 import './styles.scss';
 
 class GamesTable extends Component {
@@ -14,7 +15,7 @@ class GamesTable extends Component {
     } = this.props;
 
     return (
-      <table className="table games-table">
+      <table className="table games-table mb-0">
         <thead>
           <tr>
             <th scope="col">Date</th>
@@ -29,14 +30,27 @@ class GamesTable extends Component {
               <tr className="tr-hover" key={game.id} onClick={() => this.rowClick(game.id)}>
                 <th scope="row">{game.date}</th>
                 <td>{game.num_goals}</td>
-                <td>{game.generated_points}</td>
+                <td>
+                  { 
+                    game.finished ?
+                      game.generated_points
+                    :
+                    'Game not finished yet'
+                  }
+                </td>
                 <th>
                   {
+                    game.finished ?
                     game.mvps.map(mvp => (
-                      <span key={mvp.id}>
-                        {`${mvp.team_player.player.first_name} ${mvp.team_player.player.last_name}`}
-                      </span>
+                      <div key={mvp.id}>
+                        <span className="mr-2 ">
+                          {`${mvp.team_player.player.first_name} ${mvp.team_player.player.last_name}`}
+                        </span>
+                        <Badge className="ranking-badge ranking-badge--golden" width={30} height={30} />
+                      </div>
                     ))
+                    :
+                    'Game not finished yet'
                   }
                 </th>
               </tr>
