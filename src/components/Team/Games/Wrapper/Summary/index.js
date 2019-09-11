@@ -23,7 +23,6 @@ class Summary extends Component {
 
   getGetGameGoals(teamId, gameId) {
     this.props.startFetch();
-    console.log(gameId)
     GameService.doGetGameGoals(teamId, gameId)
       .then((response) => {
         console.log(response.data)

@@ -50,5 +50,13 @@ export const GameService = {
       url: url
     });
   },
+
+  doGetTeamAvailablePlayers(teamId, gameId) {
+    const url = `/api/teams/${teamId}/games/${gameId}/available-players`;
+    return axios({
+      method: 'get',
+      url: url
+    });
+  },
   
 };
