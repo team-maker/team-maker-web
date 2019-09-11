@@ -47,6 +47,12 @@ class Points extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    game: state.gameReducer.currentGame,
+  }
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     startFetch: () => dispatch(startFetch()),
@@ -54,5 +60,5 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Points)
+export default connect(mapStateToProps, mapDispatchToProps)(Points)
 

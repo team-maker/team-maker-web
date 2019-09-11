@@ -23,8 +23,10 @@ class Summary extends Component {
 
   getGetGameGoals(teamId, gameId) {
     this.props.startFetch();
+    console.log(gameId)
     GameService.doGetGameGoals(teamId, gameId)
       .then((response) => {
+        console.log(response.data)
         this.setState({goals: response.data});
       })
       .catch((error) => {
@@ -122,6 +124,12 @@ class Summary extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    game: state.gameReducer.currentGame,
+  }
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     startFetch: () => dispatch(startFetch()),
@@ -130,5 +138,5 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Summary)
+export default connect(mapStateToProps, mapDispatchToProps)(Summary)
 

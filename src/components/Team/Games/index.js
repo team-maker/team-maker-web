@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 import GamesTable from './table';
+import ContentNavbar from '../../shared/ContentNavbar';
 import { GameService } from '../../../services';
 import { startFetch, endFetch } from '../../../actions/generalActions'
 import cogoToast from 'cogo-toast';
@@ -34,7 +36,6 @@ class Game extends Component {
       })
   }
 
-
   render() {
     const {
       team
@@ -42,11 +43,22 @@ class Game extends Component {
     const {
       games
     } = this.state;
+    
     return (
-      <div className="content games">
-        <h2 className="font-weight-bold mb-4">{`${team.name} Games`}</h2>
-        <GamesTable games={games} team={team} history={this.props.history}/>
-      </div>
+      <>
+        <ContentNavbar
+          title={`${team.name} Games`}
+          backLink={`player/teams`}
+        />
+        <div className="content games">
+          <div className="btn-wrapper">
+            <Link className="btn btn-secondary mb-3" to={`/teams/${team.id}/games/new`}>
+              + New Game
+            </Link>
+          </div>
+          <GamesTable games={games} team={team} history={this.props.history}/>
+        </div>
+      </>
     )
   }
 }

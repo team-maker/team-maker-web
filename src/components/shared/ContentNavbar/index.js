@@ -15,7 +15,7 @@ export default class ContentNavbar extends Component {
     return (
       <Navbar className='content-navbar p-0' collapseOnSelect expand="lg">
         <div className="header p-3">
-          <h4 className="m-0">{title}</h4>
+          <h4 className="m-0 font-weight-bold">{title}</h4>
           {
             backLink &&
             <Link className="back-link" to={backLink}>{'< Back'}</Link>
@@ -28,7 +28,7 @@ export default class ContentNavbar extends Component {
             <Nav>
               {
                 links.map((link, index) => (
-                    <NavLink key={index} className="nav-link px-5 py-2" to={link.url}>
+                    <NavLink key={index} className="nav-link px-5 py-2 font-weight-bold" to={link.url}>
                       {link.title}
                     </NavLink>
                   )
@@ -36,8 +36,7 @@ export default class ContentNavbar extends Component {
               }
             </Nav>
           </Navbar.Collapse>
-        }
-        
+        }   
       </Navbar>
     )
   }
