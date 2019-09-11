@@ -22,7 +22,7 @@ class App extends Component {
           <div className="content-wrapper">
             <Switch>
               <PrivateRoute path="/player" component={Player} />
-              <PrivateRoute path="/teams/:id" component={Team} />
+              <PrivateRoute path="/teams/:team_id" component={Team} />
               <Route exact path="/" component={Homepage} />
               <Route component={NotFound} />
             </Switch>

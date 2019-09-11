@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Switch } from "react-router-dom";
 import PrivateRoute from '../routes/PrivateRoute'
 import { TeamService } from '../../services';
 import { startFetch, endFetch } from '../../actions/generalActions'
@@ -11,6 +12,7 @@ import Game from './Games/index.js';
 import Dashboard from './Dashboard/index.js';
 import Invite from './Invites/index.js';
 import Rules from './Rules/index.js';
+import GameNew from './Games/new.js'
 import cogoToast from 'cogo-toast';
 import './styles.scss';
 
@@ -24,7 +26,7 @@ class Team extends Component {
    }
 
   componentDidMount() {
-    const teamId = this.props.match.params.id;
+    const teamId = this.props.match.params.team_id;
     this.getTeam(teamId);
     this.getCurrentTeamPlayer(teamId);
   }
@@ -109,6 +111,7 @@ class Team extends Component {
     if (!team) {
       return <></>
     }
+
     const links = this.getSidebarLinks(team);
     const shortcutLinks = this.getSidebarShortcutLinks();
     return (
@@ -119,13 +122,16 @@ class Team extends Component {
           shortcutLinks={shortcutLinks}
         />
         <div className="page-content">
-          <PrivateRoute exact path={`${match.path}/dashboard`} component={Dashboard} team={team} teamPlayer={teamPlayer} />
-          <PrivateRoute exact path={`${match.path}/players`} component={Player} team={team} teamPlayer={teamPlayer} />
-          <PrivateRoute exact path={`${match.path}/players/:id/stats`} component={PlayerStats} team={team} teamPlayer={teamPlayer} />
-          <PrivateRoute exact path={`${match.path}/games`} component={Game} team={team} teamPlayer={teamPlayer} />
-          <PrivateRoute path={`${match.path}/games/:id`} component={GameWrapper} team={team} teamPlayer={teamPlayer} />
-          <PrivateRoute exact path={`${match.path}/rules`} component={Rules} team={team} teamPlayer={teamPlayer} />
-          <PrivateRoute exact path={`${match.path}/invites`} component={Invite} team={team} teamPlayer={teamPlayer} />
+          <Switch>
+            <PrivateRoute exact path={`${match.path}/dashboard`} component={Dashboard} team={team} teamPlayer={teamPlayer} />
+            <PrivateRoute exact path={`${match.path}/players`} component={Player} team={team} teamPlayer={teamPlayer} />
+            <PrivateRoute exact path={`${match.path}/players/:id/stats`} component={PlayerStats} team={team} teamPlayer={teamPlayer} />
+            <PrivateRoute exact path={`${match.path}/games/new`} component={GameNew} team={team} teamPlayer={teamPlayer} />
+            <PrivateRoute exact path={`${match.path}/games`} component={Game} team={team} teamPlayer={teamPlayer} />
+            <PrivateRoute path={`${match.path}/games/:game_id`} component={GameWrapper} team={team} teamPlayer={teamPlayer} />
+            <PrivateRoute exact path={`${match.path}/rules`} component={Rules} team={team} teamPlayer={teamPlayer} />
+            <PrivateRoute exact path={`${match.path}/invites`} component={Invite} team={team} teamPlayer={teamPlayer} />
+          </Switch>
         </div>
       </div>
     )

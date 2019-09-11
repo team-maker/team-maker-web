@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Player from './player';
 import './styles.scss';
 
@@ -37,7 +38,7 @@ const POSITIONS = [
   },
 ]
 
-export default class TeamLineup extends Component {
+class TeamLineup extends Component {
   constructor(props) {
     super(props)
     this.state = { 
@@ -46,7 +47,6 @@ export default class TeamLineup extends Component {
   }
 
   selectedTeam = (team) => {
-    console.log(team)
     this.setState({selectedTeam: team})
   }
 
@@ -101,5 +101,13 @@ export default class TeamLineup extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    game: state.gameReducer.currentGame,
+  }
+}
+
+export default connect(mapStateToProps, null)(TeamLineup)
 
 

@@ -18,6 +18,15 @@ export const GameService = {
     });
   },
 
+  doCreateGame(teamId, payload) {
+    const url = `/api/teams/${teamId}/games`;
+    return axios({
+      method: 'post',
+      url: url,
+      data: payload
+    });
+  },
+
   doMarkGameFinished(teamId, gameId) {
     const url = `/api/teams/${teamId}/games/${gameId}/finish`;
     return axios({

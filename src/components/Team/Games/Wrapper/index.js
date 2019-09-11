@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Switch } from "react-router-dom";
 import PrivateRoute from '../../../routes/PrivateRoute'
 import ContentNavbar from '../../../shared/ContentNavbar';
 import Summary from './Summary';
@@ -14,17 +15,28 @@ import './styles.scss';
 class GameWrapper extends Component {
 
   componentDidMount() {
-    if (!this.props.game) {
-      const gameId = this.props.match.params.id;
-      const teamId = this.props.team.id;
+    const {
+      game,
+      team,
+      match,
+    } = this.props;
+    if (!game) {
+      const gameId = match.params.game_id;
+      const teamId = team.id;
       this.getGetGame(teamId, gameId);
     }
   }
+
+  componentWillUnmount() {
+    this.props.saveCurrentGame(undefined);
+  }
+
 
   getGetGame(teamId, gameId) {
     this.props.startFetch();
     GameService.doGetGame(teamId, gameId)
       .then((response) => {
+        console.log("game Fetch", response.data)
         this.props.saveCurrentGame(response.data);
       })
       .catch((error) => {
@@ -40,6 +52,10 @@ class GameWrapper extends Component {
       {
         title: 'Summary',
         url: `/teams/${team.id}/games/${game.id}/summary`
+      },
+      {
+        title: 'Available Players',
+        url: `/teams/${team.id}/games/${game.id}/available-players`
       },
       {
         title: 'Teams',
@@ -63,6 +79,7 @@ class GameWrapper extends Component {
     if (!game) {
       return <></>
     }
+
     const links = this.getNavLinks(team, game);
     return (
       <>
@@ -72,9 +89,11 @@ class GameWrapper extends Component {
           links={links}
         />
         <div className="content game-details">
-          <PrivateRoute exact path={`${match.path}/summary`} component={Summary} team={team} game={game} />
-          <PrivateRoute exact path={`${match.path}/lineup`} component={TeamLineup} team={team} game={game} />
-          <PrivateRoute exact path={`${match.path}/points`} component={Points} team={team} game={game} />
+          <Switch>
+            <PrivateRoute exact path={`${match.path}/summary`} component={Summary} team={team} />
+            <PrivateRoute exact path={`${match.path}/lineup`} component={TeamLineup} team={team} />
+            <PrivateRoute exact path={`${match.path}/points`} component={Points} team={team} />
+          </Switch>
         </div>
       </>
     )
