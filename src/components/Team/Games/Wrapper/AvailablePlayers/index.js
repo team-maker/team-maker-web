@@ -17,14 +17,45 @@ class AvailablePlayers extends Component {
   componentDidMount() {
     const gameId = this.props.game.id;
     const teamId = this.props.team.id;
-    this.doGetTeamAvailablePlayers(teamId, gameId);
+    this.doGetGameAvailablePlayers(teamId, gameId);
   }
 
-  doGetTeamAvailablePlayers(teamId, gameId) {
+  doGetGameAvailablePlayers(teamId, gameId) {
     this.props.startFetch();
-    GameService.doGetTeamAvailablePlayers(teamId, gameId)
+    GameService.doGetGameAvailablePlayers(teamId, gameId)
       .then((response) => {
         this.setState({teamAvailablePlayers: response.data});
+      })
+      .catch((error) => {
+        cogoToast.error('ERROR', { position: 'bottom-left' });
+      })
+      .finally(() => {
+        this.props.endFetch();
+      })
+  }
+
+  markPresence = (availablePlayer) => {
+    this.updateTeamPlayerAvailabity(availablePlayer, 'going')
+  }
+
+  markCantGo = (availablePlayer) => {
+    this.updateTeamPlayerAvailabity(availablePlayer, 'not_going')
+  }
+
+  markUnknownPresence = (availablePlayer) => {
+    this.updateTeamPlayerAvailabity(availablePlayer, 'unknown')
+  }
+
+  updateTeamPlayerAvailabity(availablePlayer, availability){
+    const gameId = this.props.game.id;
+    const teamId = this.props.team.id;
+    const payload = {
+      availability: availability
+    }
+    GameService.doUpdateAvailablePlayer(teamId, gameId, availablePlayer.id, payload)
+      .then((response) => {
+        cogoToast.success('Player Availabilty Changed', { position: 'bottom-left' });
+        this.doGetGameAvailablePlayers(teamId, gameId);
       })
       .catch((error) => {
         cogoToast.error('ERROR', { position: 'bottom-left' });
@@ -41,7 +72,12 @@ class AvailablePlayers extends Component {
 
     return (
       <div className="player-points">
-        <Table teamAvailablePlayers={teamAvailablePlayers}/>
+        <Table 
+          teamAvailablePlayers={teamAvailablePlayers}
+          markPresence={this.markPresence}
+          markUnknownPresence={this.markUnknownPresence}
+          markCantGo={this.markCantGo}
+        />
       </div>
     )
   }

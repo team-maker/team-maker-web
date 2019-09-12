@@ -2,7 +2,13 @@
 
 .player-points {
   
-  .points-table {
+  .availability-table {
     @include table;
+
+    .availability-table--icon {
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 }

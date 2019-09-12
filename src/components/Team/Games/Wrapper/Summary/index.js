@@ -88,6 +88,10 @@ class Summary extends Component {
               </h4>
             ))
           }
+          {
+            goals.length === 0 &&
+            <h3 className="m-auto font-weight-bold">No Goals Registered</h3>
+          }
         </div>
         {
           !game.finished &&

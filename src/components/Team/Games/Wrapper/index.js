@@ -49,25 +49,34 @@ class GameWrapper extends Component {
   }
 
   getNavLinks(team, game) {
-    return [
+    let links = [
       {
         title: 'Summary',
         url: `/teams/${team.id}/games/${game.id}/summary`
       },
       {
-        title: 'Available Players',
-        url: `/teams/${team.id}/games/${game.id}/available-players`
-      },
-      {
         title: 'Teams',
         url: `/teams/${team.id}/games/${game.id}/lineup`
       },
-      {
-        title: 'Points',
-        url: `/teams/${team.id}/games/${game.id}/points`
-      },
-      
     ]
+
+    if (game.finished) {
+      links.push(
+        {
+          title: 'Points',
+          url: `/teams/${team.id}/games/${game.id}/points`
+        }
+      )
+    }
+    else {
+      links.push(
+        {
+          title: 'Available Players',
+          url: `/teams/${team.id}/games/${game.id}/available-players`
+        }
+      )
+    }
+    return links
   }
 
   render() {
