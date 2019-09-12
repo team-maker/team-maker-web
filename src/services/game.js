@@ -50,5 +50,21 @@ export const GameService = {
       url: url
     });
   },
-  
+
+  doGetGameAvailablePlayers(teamId, gameId) {
+    const url = `/api/teams/${teamId}/games/${gameId}/available-players`;
+    return axios({
+      method: 'get',
+      url: url
+    });
+  },
+
+  doUpdateAvailablePlayer(teamId, gameId, availablePlayerId, payload) {
+    const url = `/api/teams/${teamId}/games/${gameId}/available-players/${availablePlayerId}`;
+    return axios({
+      method: 'put',
+      url: url,
+      data: payload
+    });
+  }
 };

@@ -6,6 +6,7 @@ import ContentNavbar from '../../../shared/ContentNavbar';
 import Summary from './Summary';
 import TeamLineup from './TeamLineup';
 import Points from './Points';
+import AvailablePlayers from './AvailablePlayers';
 import { GameService } from '../../../../services';
 import { startFetch, endFetch } from '../../../../actions/generalActions'
 import { saveCurrentGame } from '../../../../actions/gameActions'
@@ -48,25 +49,34 @@ class GameWrapper extends Component {
   }
 
   getNavLinks(team, game) {
-    return [
+    let links = [
       {
         title: 'Summary',
         url: `/teams/${team.id}/games/${game.id}/summary`
       },
       {
-        title: 'Available Players',
-        url: `/teams/${team.id}/games/${game.id}/available-players`
-      },
-      {
         title: 'Teams',
         url: `/teams/${team.id}/games/${game.id}/lineup`
       },
-      {
-        title: 'Points',
-        url: `/teams/${team.id}/games/${game.id}/points`
-      },
-      
     ]
+
+    if (game.finished) {
+      links.push(
+        {
+          title: 'Points',
+          url: `/teams/${team.id}/games/${game.id}/points`
+        }
+      )
+    }
+    else {
+      links.push(
+        {
+          title: 'Available Players',
+          url: `/teams/${team.id}/games/${game.id}/available-players`
+        }
+      )
+    }
+    return links
   }
 
   render() {
@@ -91,6 +101,7 @@ class GameWrapper extends Component {
         <div className="content game-details">
           <Switch>
             <PrivateRoute exact path={`${match.path}/summary`} component={Summary} team={team} />
+            <PrivateRoute exact path={`${match.path}/available-players`} component={AvailablePlayers} team={team} />
             <PrivateRoute exact path={`${match.path}/lineup`} component={TeamLineup} team={team} />
             <PrivateRoute exact path={`${match.path}/points`} component={Points} team={team} />
           </Switch>

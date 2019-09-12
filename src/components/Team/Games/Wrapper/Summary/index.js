@@ -23,7 +23,6 @@ class Summary extends Component {
 
   getGetGameGoals(teamId, gameId) {
     this.props.startFetch();
-    console.log(gameId)
     GameService.doGetGameGoals(teamId, gameId)
       .then((response) => {
         console.log(response.data)
@@ -88,6 +87,10 @@ class Summary extends Component {
                   {`${goal.scorer.team_player.player.first_name} ${goal.scorer.team_player.player.last_name}`}
               </h4>
             ))
+          }
+          {
+            goals.length === 0 &&
+            <h3 className="m-auto font-weight-bold">No Goals Registered</h3>
           }
         </div>
         {
