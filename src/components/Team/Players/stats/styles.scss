@@ -1,0 +1,22 @@
+@import '../../../../index.scss';
+
+.player-stats {
+
+  .player-stats__points-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .player-stats__games-wrapper {
+    display: flex;
+
+    .player-stats__games-wrapper__stat {
+      display: flex;
+      flex-direction: column;
+      flex-basis: 100%;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

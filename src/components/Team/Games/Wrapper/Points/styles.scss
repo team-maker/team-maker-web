@@ -1,0 +1,8 @@
+@import '../../../../../index.scss';
+
+.player-points {
+  
+  .points-table {
+    @include table;
+  }
+}

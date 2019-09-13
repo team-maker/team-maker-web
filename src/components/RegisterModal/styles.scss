@@ -1,0 +1,31 @@
+@import '../../index.scss';
+
+.login-modal {
+  // opacity: 0.5;
+  text-align: center;
+
+  .modal-content {
+    background-color: $modal-bg-color;
+  }
+  
+  .logo {
+    width: 190px;
+  }
+
+  p {
+    color: white;
+  }
+
+  .nav-button {
+    background: #0fa00f;
+    border-radius: 3px;
+    color: white;
+    font-size: 20px;
+    padding: 5px 15px;
+
+    &:hover {
+      opacity: .9;
+      text-decoration: none;
+    }
+  }
+}

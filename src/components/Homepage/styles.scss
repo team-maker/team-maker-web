@@ -1,0 +1,11 @@
+@import '../../index.scss';
+
+.homepage {
+  @include background-cover;
+  background-image: url("../../assets/images/background-images/homepage-2.jpg");
+  height: calc(100vh - #{$nav-height});
+  margin-top: $nav-height;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

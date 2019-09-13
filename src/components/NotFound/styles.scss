@@ -1,0 +1,16 @@
+@import '../../index.scss';
+
+.not-found {
+  @include background-cover;
+  @include gradient;
+  background-image: url("../../assets/images/background-images/not-found.jpg");
+  opacity: 0.7;
+  height: calc(100vh - #{$nav-height});
+  margin-top: $nav-height;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  text-align: center;
+
+  
+}

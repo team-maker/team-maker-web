@@ -1,0 +1,15 @@
+@import '../../../index.scss';
+
+.home-nav {
+  background: $nav-color;
+  height: $nav-height;
+  
+  .navbar-nav {
+    .nav-link {
+      color: white;
+    }
+  }
+  .logo {
+    width: 190px;
+  }
+}

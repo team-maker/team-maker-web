@@ -1,0 +1,11 @@
+@import './index.scss';
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  .content-wrapper {
+    height: 100vh;
+  }
+}

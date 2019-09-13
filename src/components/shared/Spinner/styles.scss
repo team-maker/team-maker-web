@@ -1,0 +1,18 @@
+@import '../../../index.scss';
+
+.spinner-wrapper {
+  width: 100vw;
+  height: 100vh;
+  z-index: 1031;
+  position: fixed;
+  top: 0;
+  opacity: 0.8;
+  background: $color-primary;
+
+  .spinner {
+    position: absolute;
+    top: 40%;
+    left: 45%;
+    z-index: 1031;
+  }
+}

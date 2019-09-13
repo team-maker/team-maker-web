@@ -1,0 +1,103 @@
+@import '../../../index.scss';
+
+.input-wrapper { 
+  position: relative;
+  margin-bottom: 45px;
+
+  .custom-input {
+    background: transparent;
+    color: white;
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid white;
+
+    &:focus { 
+      outline: none;
+    }
+
+    &:focus ~ .input-label, &:valid ~ .input-label    {
+      top: -20px;
+      font-size: 16px;
+      color: white;
+    }
+
+    /* active state */
+    &:focus ~ .bar:before, &:focus ~ .bar:after {
+      width: 50%;
+    }
+
+    &:focus ~ .highlight {
+      -webkit-animation: inputHighlighter 0.3s ease;
+      -moz-animation: inputHighlighter 0.3s ease;
+      animation: inputHighlighter 0.3s ease;
+    }
+
+
+  }
+
+  .input-label {
+    color: white; 
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.2s ease all; 
+    -moz-transition: 0.2s ease all; 
+    -webkit-transition: 0.2s ease all;
+  }
+
+  .bar { 
+    position: relative;
+    display: block;
+    width: 300px;
+
+    &:before, &:after   {
+      content: '';
+      height: 2px; 
+      width: 0;
+      bottom: 1px; 
+      position: absolute;
+      background: $color-primary; 
+      transition: 0.2s ease all; 
+      -moz-transition: 0.2s ease all; 
+      -webkit-transition: 0.2s ease all;
+    }
+
+    &:before {
+      left: 50%;
+    }
+    &:after {
+      right: 50%;
+    }
+  }
+
+  /* HIGHLIGHTER ================================== */
+  .highlight {
+    position: absolute;
+    height: 60%; 
+    width: 100px; 
+    top: 25%; 
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  /* ANIMATIONS ================ */
+  @-webkit-keyframes inputHighlighter {
+    from { background: $color-primary; }
+    to  { width:0; background:transparent; }
+  }
+  @-moz-keyframes inputHighlighter {
+    from { background: $color-primary; }
+    to  { width:0; background:transparent; }
+  }
+  @keyframes inputHighlighter {
+    from { background: $color-primary; }
+    to  { width:0; background:transparent; }
+  }
+}

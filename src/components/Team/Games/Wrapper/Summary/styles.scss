@@ -1,0 +1,74 @@
+@import '../../../../../index.scss';
+
+.summary {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+
+  .summary__teams {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+
+    .summary__teams__title {
+      color: $active-link-color;
+    }
+
+  }
+}
+
+.goals {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .goals__scorer {
+    display: flex;
+    width: 100%;
+    color: $active-link-color;
+    font-weight: bold;
+
+    &.goals__scorer--left {
+      justify-content: flex-start;
+    }
+
+    &.goals__scorer--right {
+      justify-content: flex-end;
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .actions__wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+
+    &.actions__wrapper--home {
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    &.actions__wrapper--away {
+      justify-content: flex-end;
+      align-items: flex-end;
+    }
+
+    .actions__wrapper__button {
+      color: $active-link-color;
+    }
+
+
+  }
+}

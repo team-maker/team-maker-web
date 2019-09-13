@@ -1,0 +1,11 @@
+.ranking-badge {
+  &.ranking-badge--gold {
+    fill: $gold;
+  }
+  &.ranking-badge--silver {
+    fill: $silver;
+  }
+  &.ranking-badge--bronze {
+    fill: $bronze;
+  }
+}

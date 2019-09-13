@@ -1,0 +1,13 @@
+@import '../../../index.scss';
+
+.games {
+  @include page-content;
+  .games-table {
+    @include table;
+  }
+
+  .btn-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

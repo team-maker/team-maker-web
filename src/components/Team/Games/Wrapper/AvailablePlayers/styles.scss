@@ -1,0 +1,14 @@
+@import '../../../../../index.scss';
+
+.player-points {
+  
+  .availability-table {
+    @include table;
+
+    .availability-table--icon {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

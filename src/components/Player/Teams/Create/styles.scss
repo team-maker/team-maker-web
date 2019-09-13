@@ -1,0 +1,25 @@
+@import '../../../../index.scss';
+
+.team-create {
+  @include background-cover;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  color: white;
+  align-items: center;
+
+  .form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    .form-group {
+     width: 60%;
+    }
+
+  }
+  
+  
+}
