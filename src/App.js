@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NotFound from './components/NotFound'
 import Homepage from './components/Homepage'
+import PrivacyPolicy from './components/PrivacyPolicy'
 import Team from './components/Team'
 import Player from './components/Player'
 import Spinner from './components/shared/Spinner'
@@ -23,6 +24,7 @@ class App extends Component {
             <Switch>
               <PrivateRoute path="/player" component={Player} />
               <PrivateRoute path="/teams/:team_id" component={Team} />
+              <Route exact path="/privacy-policy" component={PrivacyPolicy} />
               <Route exact path="/" component={Homepage} />
               <Route component={NotFound} />
             </Switch>
