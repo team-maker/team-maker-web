@@ -108,7 +108,7 @@ class Team extends Component {
       match
     } = this.props;
 
-    if (!team) {
+    if (!team || !teamPlayer) {
       return <></>
     }
 
