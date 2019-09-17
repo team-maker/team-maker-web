@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PrivateRoute from '../routes/PrivateRoute'
+import { Switch } from "react-router-dom";
 import Sidebar from '../shared/Sidebar/index.js';
 import Teams from './Teams'
 import CreateTeam from './Teams/Create'
@@ -39,6 +40,7 @@ class Player extends Component {
     if (!user) {
       return <></>
     }
+    console.log(match.path)
     const links = this.getSidebarLinks();
     return (
       <div className={`player content-wrapper toggled`}>
@@ -47,10 +49,12 @@ class Player extends Component {
           links={links}
         />
         <div className="page-content">
-          <PrivateRoute exact path={`${match.path}/teams/create`} component={CreateTeam} />
-          <PrivateRoute exact path={`${match.path}/teams/join`} component={JoinTeam} />
-          <PrivateRoute exact path={`${match.path}/teams`} component={Teams} />
-          <PrivateRoute exact path={`${match.path}/profile`} component={Profile} />
+          <Switch>
+            <PrivateRoute exact path={`${match.path}/teams/create`} component={CreateTeam} />
+            <PrivateRoute exact path={`${match.path}/teams/join`} component={JoinTeam} />
+            <PrivateRoute exact path={`${match.path}/teams`} component={Teams} />
+            <PrivateRoute exact path={`${match.path}/profile`} component={Profile} />
+          </Switch>
         </div>
       </div>
     )

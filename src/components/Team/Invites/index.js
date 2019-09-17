@@ -15,7 +15,7 @@ class Invite extends Component {
   };
 
   joinLink(token) {
-    return `${window.location.protocol}//${window.location.host}/teams/join?token=${token}`
+    return `${window.location.protocol}//${window.location.host}/player/teams/join?token=${token}`
   }
 
   render() {
