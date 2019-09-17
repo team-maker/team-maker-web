@@ -20,15 +20,13 @@ class App extends Component {
             this.props.loading  > 0 &&
             <Spinner/>
           }
-          <div className="content-wrapper">
-            <Switch>
-              <PrivateRoute path="/player" component={Player} />
-              <PrivateRoute path="/teams/:team_id" component={Team} />
-              <Route exact path="/privacy-policy" component={PrivacyPolicy} />
-              <Route exact path="/" component={Homepage} />
-              <Route component={NotFound} />
-            </Switch>
-          </div>
+          <Switch>
+            <PrivateRoute path="/player" component={Player} />
+            <PrivateRoute path="/teams/:team_id" component={Team} />
+            <Route exact path="/privacy-policy" component={PrivacyPolicy} />
+            <Route exact path="/" component={Homepage} />
+            <Route component={NotFound} />
+          </Switch>
         </Router>
       </>
     )
