@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { startFetch, endFetch } from '../../../../actions/generalActions';
 import cogoToast from 'cogo-toast';
 import queryString from 'query-string'
-import '../styles.scss';
+import './styles.scss';
 
 class Join extends Component {
 
@@ -70,16 +70,15 @@ class Join extends Component {
     }
     console.log(team)
     return (
-      <div className='content teams'>
+      <div className='content team-join'>
         <Container className="center">
           <Card>
             <Card.Body className="text-center">
               <h3 className="font-weight-bold mb-5">{ team.name }</h3>
-              <h4 className="font-weight-bold mt-5">Click to visit Team Dashboard</h4>
               <h5 className="font-weight-bold mt-5">{`Nº of Players: ${team.team_players.length}`}</h5>
               <h5 className="font-weight-bold my-5">{`Admin: ${team.team_players[0].first_name}`}</h5>
-              <Button variant="primary" onClick={() => this.JoinTeamSubmit()}>
-                Join { team.name }
+              <Button variant="secondary" onClick={() => this.JoinTeamSubmit()}>
+                Join
               </Button>
             </Card.Body>
           </Card>

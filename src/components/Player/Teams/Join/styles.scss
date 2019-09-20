@@ -1,24 +1,36 @@
-@import '../../../index.scss';
+@import '../../../../index.scss';
 
-.team-create {
+.team-join {
   @include background-cover;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-direction: column;
   color: white;
   align-items: center;
-
-  .form {
+  
+  .container {
     display: flex;
-    justify-content: center;
-    flex-direction: column;
+    justify-content: space-between;
+    flex-direction: row;
     align-items: center;
+    margin-top: $nav-height;
+    flex-wrap: wrap;
 
-    .form-group {
-     width: 60%;
+    &.center {
+      justify-content: center;
     }
-
   }
+
+  .card {
+    @include card;
+
+    .btn-secondary {
+      color: $color-secondary;
+      padding: 10px 25px;
+    }
+  }
+
+
   
   
 }
