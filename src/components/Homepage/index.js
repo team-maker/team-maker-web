@@ -22,7 +22,7 @@ class Homepage extends Component {
   }
 
   componentDidMount() {
-    this.validateRedirect();
+    // this.validateRedirect();
   }
 
   validateRedirect() {
@@ -101,7 +101,7 @@ class Homepage extends Component {
 
 
   render() {
-    const jwtToken = this.props.jwtToken;
+    const jwtToken = localStorage.getItem('jwtToken');
     const {
       showLoginModal,
       showRegisterModal

@@ -6,8 +6,9 @@ import { Redirect } from 'react-router';
 class PrivateRoute extends Component{
 
   render() {
-    const {component: Component, ...rest} = this.props
-    const has_filled_data = true
+    const { component: Component, ...rest } = this.props;
+    const user = this.props.user;
+    const has_filled_data = user.first_name && user.last_name
     return(
       <Route {...rest} render={(props) => {
         const isLoggedIn = localStorage.getItem('jwtToken')
