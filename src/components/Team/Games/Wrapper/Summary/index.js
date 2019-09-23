@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, OverlayTrigger, Tooltip }  from 'react-bootstrap';
 import { GameService } from '../../../../../services';
-import { startFetch, endFetch } from '../../../../../actions/generalActions'
-import { saveCurrentGame } from '../../../../../actions/gameActions'
+import { startFetch, endFetch } from '../../../../../actions/generalActions';
+import { saveCurrentGame } from '../../../../../actions/gameActions';
+import GoalSelector from './goalSelector';
 import cogoToast from 'cogo-toast';
 import './styles.scss';
 
@@ -11,7 +12,9 @@ class Summary extends Component {
   constructor(props) {
     super(props)
     this.state = { 
-      goals: []
+      goals: [],
+      showHomeTeamGoalSelector: false,
+      showAwayTeamGoalSelector: false
     }
    }
 
@@ -52,9 +55,17 @@ class Summary extends Component {
       })
   }
 
+  handleOpenHomeTeamGoal  = () => this.setState({showHomeTeamGoalSelector: true});
+  handleCloseHomeTeamGoal  = () => this.setState({showHomeTeamGoalSelector: false});
+
+  handleOpenAwayTeamGoal  = () => this.setState({showAwayTeamGoalSelector: true});
+  handleCloseAwayTeamGoal  = () => this.setState({showAwayTeamGoalSelector: false});
+
   render() {
     const {
-      goals
+      goals,
+      showHomeTeamGoalSelector,
+      showAwayTeamGoalSelector
     } = this.state;
 
     const {
@@ -97,9 +108,15 @@ class Summary extends Component {
           !game.finished &&
           <div className="actions py-4">
             <div className="actions__wrapper actions__wrapper--home">
-              <Button variant="secondary" className="font-weight-bold" type="submit">
-                Add Home Team Goal
+              <Button variant="secondary" className="font-weight-bold" onClick={() => this.handleOpenHomeTeamGoal()}>
+                + Home Goal
               </Button>
+              <GoalSelector 
+                teamGroupPlayers={game.home_team.team_group_players}
+                show={showHomeTeamGoalSelector}
+                game={game}
+                handleGoalSelectorClose={this.handleCloseHomeTeamGoal}
+              />
             </div>
             <div className="actions__wrapper">
               <OverlayTrigger
@@ -116,9 +133,15 @@ class Summary extends Component {
               </OverlayTrigger>
             </div>
             <div className="actions__wrapper actions__wrapper--away">
-              <Button variant="secondary" className="font-weight-bold" type="submit">
-                Add Away Team Goal
+              <Button variant="secondary" className="font-weight-bold" onClick={() => this.handleOpenAwayTeamGoal()}>
+                + Away Goal
               </Button>
+              <GoalSelector 
+                teamGroupPlayers={game.away_team.team_group_players}
+                show={showAwayTeamGoalSelector}
+                game={game}
+                handleGoalSelectorClose={this.handleCloseAwayTeamGoal}
+              />
             </div>
           </div>
         }

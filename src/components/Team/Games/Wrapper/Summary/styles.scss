@@ -56,13 +56,13 @@
     align-items: center;
 
     &.actions__wrapper--home {
-      justify-content: flex-start;
-      align-items: flex-start;
+      justify-content: center;
+      align-items: center;
     }
 
     &.actions__wrapper--away {
-      justify-content: flex-end;
-      align-items: flex-end;
+      justify-content: center;
+      align-items: center;
     }
 
     .actions__wrapper__button {

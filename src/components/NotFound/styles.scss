@@ -5,12 +5,13 @@
   @include gradient;
   background-image: url("../../assets/images/background-images/not-found.jpg");
   opacity: 0.7;
-  height: calc(100vh - #{$nav-height});
-  margin-top: $nav-height;
+  height: 100vh;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-direction: column;
   text-align: center;
 
-  
+  .content {
+    z-index: 1;
+  }
 }
