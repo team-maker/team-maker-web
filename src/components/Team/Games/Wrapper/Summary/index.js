@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { Button, OverlayTrigger, Tooltip }  from 'react-bootstrap';
 import { GameService } from '../../../../../services';
 import { startFetch, endFetch } from '../../../../../actions/generalActions';
@@ -28,8 +29,25 @@ class Summary extends Component {
     this.props.startFetch();
     GameService.doGetGameGoals(teamId, gameId)
       .then((response) => {
-        console.log(response.data)
         this.setState({goals: response.data});
+      })
+      .catch((error) => {
+        cogoToast.error('ERROR', { position: 'bottom-left' });
+      })
+      .finally(() => {
+        this.props.endFetch();
+      })
+  }
+
+
+  doCreateGameGoal = (payload) => {
+    const gameId = this.props.game.id;
+    const teamId = this.props.team.id;
+    this.props.startFetch();
+    GameService.doCreateGameGoal(teamId, gameId, payload)
+      .then((response) => {
+        this.getGetGameGoals(teamId, gameId);
+        cogoToast.success('Goal added', { position: 'bottom-left' });
       })
       .catch((error) => {
         cogoToast.error('ERROR', { position: 'bottom-left' });
@@ -69,11 +87,19 @@ class Summary extends Component {
     } = this.state;
 
     const {
-      game
+      game,
+      team
     } = this.props;
     
     const homeTeam = game.home_team;
     const awayTeam = game.away_team;
+
+    const home_team_players = homeTeam.team_group_players.length;
+    const away_team_players = awayTeam.team_group_players.length;
+
+    if (home_team_players === 0 || away_team_players === 0) {
+      return <Redirect to={`/teams/${team.id}/games/${game.id}/available-players`} />
+    }
     return (
       <>
         <div className="summary p-2 border-bottom">
@@ -116,6 +142,7 @@ class Summary extends Component {
                 show={showHomeTeamGoalSelector}
                 game={game}
                 handleGoalSelectorClose={this.handleCloseHomeTeamGoal}
+                doCreateGameGoal={this.doCreateGameGoal}
               />
             </div>
             <div className="actions__wrapper">
@@ -141,6 +168,7 @@ class Summary extends Component {
                 show={showAwayTeamGoalSelector}
                 game={game}
                 handleGoalSelectorClose={this.handleCloseAwayTeamGoal}
+                doCreateGameGoal={this.doCreateGameGoal}
               />
             </div>
           </div>
