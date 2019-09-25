@@ -40,7 +40,6 @@ class Player extends Component {
     if (!user) {
       return <></>
     }
-    console.log(match.path)
     const links = this.getSidebarLinks();
     return (
       <div className={`player content-wrapper toggled`}>

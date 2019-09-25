@@ -33,11 +33,10 @@ class GameWrapper extends Component {
   }
 
 
-  getGetGame(teamId, gameId) {
+  getGetGame = (teamId, gameId) => {
     this.props.startFetch();
     GameService.doGetGame(teamId, gameId)
       .then((response) => {
-        console.log("game Fetch", response.data)
         this.props.saveCurrentGame(response.data);
       })
       .catch((error) => {
@@ -49,30 +48,38 @@ class GameWrapper extends Component {
   }
 
   getNavLinks(team, game) {
-    let links = [
-      {
-        title: 'Summary',
-        url: `/teams/${team.id}/games/${game.id}/summary`
-      },
-      {
-        title: 'Teams',
-        url: `/teams/${team.id}/games/${game.id}/lineup`
-      },
-    ]
+    let links = []
+    const home_team_players = game.home_team.team_group_players.length;
+    const away_team_players = game.away_team.team_group_players.length;
+    if (home_team_players > 0 && away_team_players > 0) {
+      links.push(
+        {
+          title: 'Summary',
+          url: `/teams/${team.id}/games/${game.id}/summary`
+        }
+      )
+      links.push(
+        {
+          title: 'Teams',
+          url: `/teams/${team.id}/games/${game.id}/lineup`
+        }
+      )
+    }
+
+    if (!game.finished) {
+      links.push(
+        {
+          title: `Available Players (${game.available_players_count})`,
+          url: `/teams/${team.id}/games/${game.id}/available-players`
+        }
+      )
+    }
 
     if (game.finished) {
       links.push(
         {
           title: 'Points',
           url: `/teams/${team.id}/games/${game.id}/points`
-        }
-      )
-    }
-    else {
-      links.push(
-        {
-          title: 'Available Players',
-          url: `/teams/${team.id}/games/${game.id}/available-players`
         }
       )
     }
@@ -101,7 +108,7 @@ class GameWrapper extends Component {
         <div className="content game-details">
           <Switch>
             <PrivateRoute exact path={`${match.path}/summary`} component={Summary} team={team} />
-            <PrivateRoute exact path={`${match.path}/available-players`} component={AvailablePlayers} team={team} />
+            <PrivateRoute exact path={`${match.path}/available-players`} component={AvailablePlayers} team={team} refreshGame={this.getGetGame} />
             <PrivateRoute exact path={`${match.path}/lineup`} component={TeamLineup} team={team} />
             <PrivateRoute exact path={`${match.path}/points`} component={Points} team={team} />
           </Switch>

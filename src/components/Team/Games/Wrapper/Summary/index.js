@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { Button, OverlayTrigger, Tooltip }  from 'react-bootstrap';
 import { GameService } from '../../../../../services';
-import { startFetch, endFetch } from '../../../../../actions/generalActions'
-import { saveCurrentGame } from '../../../../../actions/gameActions'
+import { startFetch, endFetch } from '../../../../../actions/generalActions';
+import { saveCurrentGame } from '../../../../../actions/gameActions';
+import GoalSelector from './goalSelector';
 import cogoToast from 'cogo-toast';
 import './styles.scss';
 
@@ -11,7 +13,9 @@ class Summary extends Component {
   constructor(props) {
     super(props)
     this.state = { 
-      goals: []
+      goals: [],
+      showHomeTeamGoalSelector: false,
+      showAwayTeamGoalSelector: false
     }
    }
 
@@ -25,8 +29,25 @@ class Summary extends Component {
     this.props.startFetch();
     GameService.doGetGameGoals(teamId, gameId)
       .then((response) => {
-        console.log(response.data)
         this.setState({goals: response.data});
+      })
+      .catch((error) => {
+        cogoToast.error('ERROR', { position: 'bottom-left' });
+      })
+      .finally(() => {
+        this.props.endFetch();
+      })
+  }
+
+
+  doCreateGameGoal = (payload) => {
+    const gameId = this.props.game.id;
+    const teamId = this.props.team.id;
+    this.props.startFetch();
+    GameService.doCreateGameGoal(teamId, gameId, payload)
+      .then((response) => {
+        this.getGetGameGoals(teamId, gameId);
+        cogoToast.success('Goal added', { position: 'bottom-left' });
       })
       .catch((error) => {
         cogoToast.error('ERROR', { position: 'bottom-left' });
@@ -52,17 +73,33 @@ class Summary extends Component {
       })
   }
 
+  handleOpenHomeTeamGoal  = () => this.setState({showHomeTeamGoalSelector: true});
+  handleCloseHomeTeamGoal  = () => this.setState({showHomeTeamGoalSelector: false});
+
+  handleOpenAwayTeamGoal  = () => this.setState({showAwayTeamGoalSelector: true});
+  handleCloseAwayTeamGoal  = () => this.setState({showAwayTeamGoalSelector: false});
+
   render() {
     const {
-      goals
+      goals,
+      showHomeTeamGoalSelector,
+      showAwayTeamGoalSelector
     } = this.state;
 
     const {
-      game
+      game,
+      team
     } = this.props;
     
     const homeTeam = game.home_team;
     const awayTeam = game.away_team;
+
+    const home_team_players = homeTeam.team_group_players.length;
+    const away_team_players = awayTeam.team_group_players.length;
+
+    if (home_team_players === 0 || away_team_players === 0) {
+      return <Redirect to={`/teams/${team.id}/games/${game.id}/available-players`} />
+    }
     return (
       <>
         <div className="summary p-2 border-bottom">
@@ -97,9 +134,16 @@ class Summary extends Component {
           !game.finished &&
           <div className="actions py-4">
             <div className="actions__wrapper actions__wrapper--home">
-              <Button variant="secondary" className="font-weight-bold" type="submit">
-                Add Home Team Goal
+              <Button variant="secondary" className="font-weight-bold" onClick={() => this.handleOpenHomeTeamGoal()}>
+                + Home Goal
               </Button>
+              <GoalSelector 
+                teamGroupPlayers={game.home_team.team_group_players}
+                show={showHomeTeamGoalSelector}
+                game={game}
+                handleGoalSelectorClose={this.handleCloseHomeTeamGoal}
+                doCreateGameGoal={this.doCreateGameGoal}
+              />
             </div>
             <div className="actions__wrapper">
               <OverlayTrigger
@@ -116,9 +160,16 @@ class Summary extends Component {
               </OverlayTrigger>
             </div>
             <div className="actions__wrapper actions__wrapper--away">
-              <Button variant="secondary" className="font-weight-bold" type="submit">
-                Add Away Team Goal
+              <Button variant="secondary" className="font-weight-bold" onClick={() => this.handleOpenAwayTeamGoal()}>
+                + Away Goal
               </Button>
+              <GoalSelector 
+                teamGroupPlayers={game.away_team.team_group_players}
+                show={showAwayTeamGoalSelector}
+                game={game}
+                handleGoalSelectorClose={this.handleCloseAwayTeamGoal}
+                doCreateGameGoal={this.doCreateGameGoal}
+              />
             </div>
           </div>
         }

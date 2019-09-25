@@ -51,6 +51,16 @@ export const GameService = {
     });
   },
 
+  doCreateGameGoal(teamId, gameId, payload) {
+    const url = `/api/teams/${teamId}/games/${gameId}/goals`;
+    return axios({
+      method: 'post',
+      url: url,
+      data: payload
+    });
+  },
+
+
   doGetGameAvailablePlayers(teamId, gameId) {
     const url = `/api/teams/${teamId}/games/${gameId}/available-players`;
     return axios({
@@ -65,6 +75,14 @@ export const GameService = {
       method: 'put',
       url: url,
       data: payload
+    });
+  },
+
+  doGenerateTeams(teamId, gameId) {
+    const url = `/api/teams/${teamId}/games/${gameId}/generate_teams`;
+    return axios({
+      method: 'post',
+      url: url
     });
   }
 };

@@ -22,7 +22,7 @@ class PrivateRoute extends Component{
           return  <Component {...props} {...rest}/>
         }
         if(isLoggedIn && !has_filled_data) {
-          return <Redirect to={'/player-profile'} />
+          return <Redirect to={'/player/profile'} />
         }
         return <Redirect to={'/teams'} />
       }} />
