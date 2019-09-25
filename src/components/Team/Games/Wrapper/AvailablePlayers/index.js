@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Button }  from 'react-bootstrap';
 import Table from './table'
 import { GameService } from '../../../../../services';
 import { startFetch, endFetch } from '../../../../../actions/generalActions'
@@ -46,6 +47,23 @@ class AvailablePlayers extends Component {
     this.updateTeamPlayerAvailabity(availablePlayer, 'unknown')
   }
 
+  generateTeams = () => {
+    const gameId = this.props.game.id;
+    const teamId = this.props.team.id;
+    GameService.doGenerateTeams(teamId, gameId)
+      .then((response) => {
+        cogoToast.success('Teams Generated', { position: 'bottom-left' });
+        this.props.refreshGame(teamId, gameId);
+        this.props.history.push(`/teams/${teamId}/games/${gameId}/lineup`);
+      })
+      .catch((error) => {
+        cogoToast.error('ERROR', { position: 'bottom-left' });
+      })
+      .finally(() => {
+        this.props.endFetch();
+      })
+  }
+
   updateTeamPlayerAvailabity(availablePlayer, availability){
     const gameId = this.props.game.id;
     const teamId = this.props.team.id;
@@ -54,8 +72,9 @@ class AvailablePlayers extends Component {
     }
     GameService.doUpdateAvailablePlayer(teamId, gameId, availablePlayer.id, payload)
       .then((response) => {
-        cogoToast.success('Player Availabilty Changed', { position: 'bottom-left' });
         this.doGetGameAvailablePlayers(teamId, gameId);
+        this.props.refreshGame(teamId, gameId);
+        cogoToast.success('Player Availabilty Changed', { position: 'bottom-left' });
       })
       .catch((error) => {
         cogoToast.error('ERROR', { position: 'bottom-left' });
@@ -70,8 +89,17 @@ class AvailablePlayers extends Component {
       teamAvailablePlayers
     } = this.state;
 
+    const game = this.props.game;
     return (
       <div className="player-points">
+        {
+          game.available_players_count >= 10 ? 
+          <Button variant="secondary mb-3" onClick={() => this.generateTeams()}>
+            Generate Teams
+          </Button>
+          :
+          <h3 className="font-weight-bold mb-4">Gather at least 10 players to generate teams!</h3>
+        }
         <Table 
           teamAvailablePlayers={teamAvailablePlayers}
           markPresence={this.markPresence}

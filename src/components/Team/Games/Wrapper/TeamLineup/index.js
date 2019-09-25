@@ -54,15 +54,17 @@ class TeamLineup extends Component {
     const {
       game,
     } = this.props;
-    const selectedTeam = this.state.selectedTeam;
 
     const homeTeam = game.home_team
     const awayTeam = game.away_team
+    const selectedTeam = this.state.selectedTeam || homeTeam;
+
+    console.log(selectedTeam)
     return (
       <div className="lineup">
         <div className="js-switcher switcher">
-          <button onClick={() => this.selectedTeam(homeTeam)} className={'js-switch switch-btn ' + (homeTeam === selectedTeam ? 'disabled' : '')}>HOME</button>
-          <button onClick={() => this.selectedTeam(awayTeam)} className={'js-switch switch-btn ' + (awayTeam === selectedTeam ? 'disabled' : '')}>AWAY</button>
+          <button onClick={() => this.selectedTeam(homeTeam)} className={'js-switch switch-btn ' + (homeTeam.id === selectedTeam.id ? 'disabled' : '')}>HOME</button>
+          <button onClick={() => this.selectedTeam(awayTeam)} className={'js-switch switch-btn ' + (awayTeam.id === selectedTeam.id ? 'disabled' : '')}>AWAY</button>
         </div>
         <div className="js-stage stage texture">
           <div className="js-world world">
