@@ -14,10 +14,15 @@ class Profile extends Component {
 
   constructor(props) {
      super(props)
+     console.log(props)
      this.state = {
        rating: props.user.player.rating
      }
    }
+
+  componentDidMount() {
+    console.log('HELLO')
+  }
 
   ratingChange = (value) => {
     this.setState({rating: value});
@@ -68,6 +73,7 @@ class Profile extends Component {
   }
 
   render() {
+    console.log(this.props.user)
     if (!this.props.user){
       return (<></>)
     }
@@ -78,6 +84,7 @@ class Profile extends Component {
       photo,
     } = this.props.user;
     
+
     return (
       <div className='content profile'>
         <Container className='mt-5'>
