@@ -10,10 +10,6 @@ import Profile from './Profile'
 import './styles.scss';
 
 class Player extends Component {
-  constructor(props) {
-    super(props)
-    console.log("OLA")
-  }
   
   getSidebarLinks() {
     return [
@@ -41,8 +37,6 @@ class Player extends Component {
       match
     } = this.props;
 
-    console.log(user)
-    console.log("OLA")
     if (!user) {
       return <></>
     }
