@@ -29,8 +29,8 @@ class GoalSelector extends Component {
     } = this.props;
 
     return (
-      <Modal className='login-modal' show={show} onHide={() => handleGoalSelectorClose()}>
-        <Modal.Body>
+      <Modal className='login-modal' centered show={show} onHide={() => handleGoalSelectorClose()}>
+        <Modal.Body className='p-5'>
           <Form onSubmit={() => this.handleAddGoal() }>
             <Form.Group controlId="formGroupEmail">
               <h3 className="font-weight-bold mb-3">Goal Scorer</h3>
