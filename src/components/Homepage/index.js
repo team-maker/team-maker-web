@@ -107,7 +107,12 @@ class Homepage extends Component {
       showRegisterModal
     } = this.state;
 
+    const user = this.props.user;
+    const redirectToFillData = !user.first_name || !user.last_name;
     if (jwtToken) {
+      if (redirectToFillData) {
+        return <Redirect to='/player/profile'/>
+      }
       return <Redirect to='/player/teams'/>
     }
     return (

@@ -10,7 +10,7 @@ import Profile from './Profile'
 import './styles.scss';
 
 class Player extends Component {
-
+  
   getSidebarLinks() {
     return [
       {

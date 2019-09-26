@@ -78,6 +78,7 @@ class Profile extends Component {
       photo,
     } = this.props.user;
     
+
     return (
       <div className='content profile'>
         <Container className='mt-5'>
