@@ -76,7 +76,6 @@ class Join extends Component {
             <Card.Body className="text-center">
               <h3 className="font-weight-bold mb-5">{ team.name }</h3>
               <h5 className="font-weight-bold mt-5">{`Nº of Players: ${team.team_players.length}`}</h5>
-              <h5 className="font-weight-bold my-5">{`Admin: ${team.team_players[0].first_name}`}</h5>
               <Button variant="secondary" onClick={() => this.JoinTeamSubmit()}>
                 Join
               </Button>
