@@ -1,42 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Player from './player';
+import * as positions from './position';
 import './styles.scss';
 
-const POSITIONS = [
-  {
-    z: '280px',
-    x: '0px'
-  },
-  {
-    z: '160px',
-    x: '-100px'
-  },
-  {
-    z: '160px',
-    x: '100px'
-  },
-  {
-    z: '0px',
-    x: '-150px'
-  },
-  {
-    z: '0px',
-    x: '150px'
-  },
-  {
-    z: '50px',
-    x: '0px'
-  },
-  {
-    z: '-190px',
-    x: '0px'
-  },
-  {
-    z: '110px',
-    x: '190px'
-  },
-]
 
 class TeamLineup extends Component {
   constructor(props) {
@@ -59,7 +26,16 @@ class TeamLineup extends Component {
     const awayTeam = game.away_team
     const selectedTeam = this.state.selectedTeam || homeTeam;
 
-    console.log(selectedTeam)
+    const numberOfPlayers = selectedTeam.team_group_players.length;
+    let lineUpPositions = []
+    if (numberOfPlayers <= 5) {
+      lineUpPositions = positions.FOOTBALL_5_POSITIONS;
+    } else if (numberOfPlayers > 5 && numberOfPlayers <= 7) {
+      lineUpPositions = positions.FOOTBALL_7_POSITIONS;
+    } else {
+      lineUpPositions = positions.FOOTBALL_11_POSITIONS;
+    }
+
     return (
       <div className="lineup">
         <div className="js-switcher switcher">
@@ -71,7 +47,11 @@ class TeamLineup extends Component {
             <div className="team js-team">
               {
                 selectedTeam.team_group_players.map((player, index) => (
-                    <Player key={player.id} teamGroupPlayer={player} positions={POSITIONS[index]}/>
+                    <Player 
+                      key={player.id}
+                      teamGroupPlayer={player}
+                      positions={lineUpPositions[index]}
+                    />
                   )
                 )
               }
