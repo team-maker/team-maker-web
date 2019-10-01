@@ -12,4 +12,16 @@
   .logo {
     width: 190px;
   }
+
+  .navbar-toggler {
+    color: white;
+    border-color: white;
+
+    .toggler-icon {
+      display: inline-block;
+      width: 1.5em;
+      height: 1.5em;
+      vertical-align: middle;
+    }
+  }
 }

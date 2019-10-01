@@ -42,7 +42,7 @@ class FacebookLoginButton extends Component {
         appId={process.env.REACT_APP_FACEBOOK_APP_ID}
         autoLoad={false}
         fields="name,email,picture"
-        cssClass="btn btn-secondary"
+        cssClass="btn btn-secondary hide-mobile"
         icon="fa-facebook"
         callback={this.responseFacebook} />
     )

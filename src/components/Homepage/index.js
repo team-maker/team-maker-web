@@ -120,11 +120,11 @@ class Homepage extends Component {
         <HomeNav handleLoginShow={this.handleLoginShow} handleRegisterShow={this.handleRegisterShow} />
         <div className='homepage'>
           <Container className='content mt-5'>
-            <h1 className="mb-3 text-uppercase font-weight-bold">Join Your Friends and Create your own League!</h1>
-            <FacebookLoginButton history={this.props.history}/>
-            <Button className="btn-secondary ml-3" onClick={() => this.handleRegisterShow()}>
+            <h1 className="mb-3 homepage__title text-uppercase font-weight-bold">Join Your Friends and Create your own League!</h1>  
+            <Button className="btn-secondary mr-3" onClick={() => this.handleRegisterShow()}>
               Register
             </Button>
+            <FacebookLoginButton history={this.props.history}/>
           </Container>
         </div>
         <LoginModal 

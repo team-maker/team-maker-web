@@ -1,0 +1,91 @@
+$breakpoints: (
+  'ultra-small': 400px,
+  'extra-small': 576px,
+  'small': 767px,
+  'medium': 992px,
+  'large': 1200px,
+  'extra-large': 1800px,
+);
+
+@mixin respond-to($breakpoint) { // from http://www.sitepoint.com/managing-responsive-breakpoints-sass/
+  $value: map-get($breakpoints, $breakpoint);
+
+  @if $value != null {
+    @media print, (min-width: $value) {
+      @content;
+    }
+  } @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + 'Please make sure it is defined in `$breakpoints` map.';
+  }
+}
+  
+@mixin respond-up-to($breakpoint) {
+  $value: map-get($breakpoints, $breakpoint);
+
+  @if $value != null {
+    @media print, (max-width: $value - 1) {
+      @content;
+    }
+  } @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + 'Please make sure it is defined in `$breakpoints` map.';
+  }
+}
+  
+@mixin respond-between($breakpoint-lower, $breakpoint-upper) {
+  $value-lower: map-get($breakpoints, $breakpoint-lower);
+  $success: true;
+
+  @if $value-lower == null {
+    $success: false;
+
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint-lower}`. "
+        + 'Please make sure it is defined in `$breakpoints` map.';
+  }
+
+  $value-upper: map-get($breakpoints, $breakpoint-upper);
+  @if $value-upper == null {
+    $success: false;
+
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint-upper}`. "
+        + 'Please make sure it is defined in `$breakpoints` map.';
+  }
+
+  @if $success {
+    @media print, (min-width: $value-lower) and (max-width: $value-upper - 1) {
+      @content;
+    }
+  }
+}
+
+@mixin on-mobile {
+  @include respond-up-to(small) {
+    @content;
+  }
+}
+
+@mixin responsive-style-classes($breakpoint-keys: map-keys($breakpoints), $include-default: true) {
+  @if($include-default) {
+    @content;
+  }
+
+  @each $key in $breakpoint-keys {
+    @if map-has-key($breakpoints, $key) {
+      &\@#{$key}- {
+        @include respond-up-to(#{$key}) {
+          @content;
+        }
+      }
+
+      &\@#{$key}\+ {
+        @include respond-to(#{$key}) {
+          @content;
+        }
+      }
+    } @else {
+      @warn "Unfortunately, no breakpoint key could be found for `#{$key}`. "
+        + 'Please make sure it is defined in `$breakpoints` map.';
+    }
+  }
+}
