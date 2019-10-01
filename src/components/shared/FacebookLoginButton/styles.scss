@@ -1,6 +1,14 @@
+@import '../../../index.scss';
+
 .btn-secondary {
   .fa {
     margin-right: 6px;
     font-weight: bold;
+  }
+
+  &.hide-mobile {
+    @include respond-up-to(small) {
+      display: none;
+    }
   }
 }
