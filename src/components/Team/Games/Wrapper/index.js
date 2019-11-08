@@ -6,6 +6,7 @@ import ContentNavbar from '../../../shared/ContentNavbar';
 import Summary from './Summary';
 import TeamLineup from './TeamLineup';
 import Points from './Points';
+import PointsAudit from './Points/Audit';
 import AvailablePlayers from './AvailablePlayers';
 import { GameService } from '../../../../services';
 import { startFetch, endFetch } from '../../../../actions/generalActions'
@@ -111,6 +112,7 @@ class GameWrapper extends Component {
             <PrivateRoute exact path={`${match.path}/available-players`} component={AvailablePlayers} team={team} refreshGame={this.getGetGame} />
             <PrivateRoute exact path={`${match.path}/lineup`} component={TeamLineup} team={team} />
             <PrivateRoute exact path={`${match.path}/points`} component={Points} team={team} />
+            <PrivateRoute exact path={`${match.path}/points/:id/audit`} component={PointsAudit} team={team} />
           </Switch>
         </div>
       </>

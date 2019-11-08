@@ -62,7 +62,7 @@ class Team extends Component {
       {
         url: `/teams/${team.id}/dashboard`,
         icon: 'tachometer-alt',
-        title: 'Dashboard'
+        title: 'My Stats'
       },
       {
         url: `/teams/${team.id}/players`,
@@ -92,7 +92,7 @@ class Team extends Component {
       {
         url: `/player/teams`,
         icon: 'columns',
-        title: 'My Teams'
+        title: 'Dashboard'
       }
     ]
   }
