@@ -3,13 +3,12 @@ import { connect } from 'react-redux';
 import { Route } from "react-router-dom";
 import { Redirect } from 'react-router';
 
-class PrivateRoute extends Component{
-
+class PrivateRoute extends Component {
   render() {
-    const { component: Component, ...rest } = this.props;
-    // const user = this.props.user;
-    // const redirectToFillData = !user.first_name || !user.last_name;
+    const { component: Component, user, ...rest } = this.props;
+    const redirectToFillData = !user.first_name || !user.last_name;
     const isLoggedIn = localStorage.getItem('jwtToken')
+
     return(
       <Route {...rest} render={(props) => { 
         if(!isLoggedIn) {
@@ -18,13 +17,12 @@ class PrivateRoute extends Component{
               state: { from: props.location }
             }} />
         }
-        if(isLoggedIn) {
-          return  <Component {...props} {...rest}/>
+
+        if (redirectToFillData && rest.location.pathname !== '/player/profile') {
+          return <Redirect to={{pathname: '/player/profile', state: { from: rest.location }}} />  
         }
-        // if(isLoggedIn && redirectToFillData) {
-        //   return <Redirect to='/player/profile' />
-        // }
-        return <Redirect to='/player/teams' />
+
+        return  <Component {...props} {...rest}/>
       }} />
     );
   }
