@@ -6,7 +6,9 @@ import './styles.scss';
 class Table extends Component {
 
   rowClick = (teamGroupPlayerId) => {
-    // this.props.history.push(`/teams/${teamId}/players/${teamPlayerId}/stats`);
+    const gameId = this.props.game.id;
+    const teamId = this.props.team.id;
+    this.props.history.push(`/teams/${teamId}/games/${gameId}/points/${teamGroupPlayerId}/audit`);
   }
 
   getBadgeColor(teamPlayer) {

@@ -1,30 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Table from './table'
-import { TeamGroupPlayerService } from '../../../../../services';
-import { startFetch, endFetch } from '../../../../../actions/generalActions'
+import { TeamGroupPlayerService } from '../../../../../../services';
+import { startFetch, endFetch } from '../../../../../../actions/generalActions'
 import cogoToast from 'cogo-toast';
 import './styles.scss';
 
-class Points extends Component {
+class PointsAudit extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      teamGroupPlayers: []
+      points: []
     }
    }
 
   componentDidMount() {
     const gameId = this.props.game.id;
     const teamId = this.props.team.id;
-    this.doGetTeamGroupPlayers(teamId, gameId);
+    const groupPlayerId = this.props.match.params.id;
+    this.doGetTeamGroupPlayers(teamId, gameId, groupPlayerId);
   }
 
-  doGetTeamGroupPlayers(teamId, gameId) {
+  doGetTeamGroupPlayers(teamId, gameId, groupPlayerId) {
     this.props.startFetch();
-    TeamGroupPlayerService.doGetTeamGroupPlayers(teamId, gameId)
+    TeamGroupPlayerService.doGetTeamGroupPlayerPoints(teamId, gameId, groupPlayerId)
       .then((response) => {
-        this.setState({teamGroupPlayers: response.data});
+        this.setState({points: response.data});
       })
       .catch((error) => {
         cogoToast.error('ERROR', { position: 'bottom-left' });
@@ -36,18 +38,15 @@ class Points extends Component {
 
   render() {
     const {
-      teamGroupPlayers
+      points
     } = this.state;
 
-    const {
-      game,
-      team,
-      history
-     } = this.props;
-
+    const gameId = this.props.game.id;
+    const teamId = this.props.team.id;
     return (
       <div className="player-points">
-        <Table teamGroupPlayers={teamGroupPlayers} team={team} game={game} history={history}/>
+        <Link className="back-link mb-4" to={`/teams/${teamId}/games/${gameId}/points`}>{'< Points'}</Link>
+        <Table points={points}/>
       </div>
     )
   }
@@ -66,5 +65,5 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Points)
+export default connect(mapStateToProps, mapDispatchToProps)(PointsAudit)
 
