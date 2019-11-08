@@ -22,7 +22,7 @@ class Homepage extends Component {
   }
 
   componentDidMount() {
-    // this.validateRedirect();
+    this.validateRedirect();
   }
 
   validateRedirect() {
@@ -107,12 +107,7 @@ class Homepage extends Component {
       showRegisterModal
     } = this.state;
 
-    const user = this.props.user;
-    const redirectToFillData = !user.first_name || !user.last_name;
     if (jwtToken) {
-      if (redirectToFillData) {
-        return <Redirect to='/player/profile'/>
-      }
       return <Redirect to='/player/teams'/>
     }
     return (
@@ -153,7 +148,6 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state){
   return {
     jwtToken: state.userReducer.jwtToken,
-    user: state.userReducer.user,
     redirectTo: state.generalReducer.redirectTo
   }
 }

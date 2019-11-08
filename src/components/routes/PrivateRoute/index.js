@@ -8,14 +8,11 @@ class PrivateRoute extends Component {
     const { component: Component, user, ...rest } = this.props;
     const redirectToFillData = !user.first_name || !user.last_name;
     const isLoggedIn = localStorage.getItem('jwtToken')
-
+    
     return(
       <Route {...rest} render={(props) => { 
         if(!isLoggedIn) {
-          return <Redirect to={{
-              pathname: "/",
-              state: { from: props.location }
-            }} />
+          return <Redirect to={{pathname: "/", state: { from: props.location }}} />
         }
 
         if (redirectToFillData && rest.location.pathname !== '/player/profile') {
