@@ -17,7 +17,7 @@ class Table extends Component {
         <thead>
           <tr>
             <th scope="col">Rule</th>
-            <th scope="col">Points ({this.totalPoints(points)})</th>
+            <th scope="col">Points</th>
           </tr>
         </thead>
         <tbody>
@@ -29,10 +29,6 @@ class Table extends Component {
               </tr>
             ))
           }
-          <tr>
-            <th scope="col"></th>
-            <th scope="col">{this.totalPoints(points)}</th>
-          </tr>
         </tbody>
       </table>
     )
