@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import GameStats from './gameStats';
+import EvaluateForm from './evaluateForm';
 import { TeamPlayerService } from '../../../../services';
 import ContentNavbar from '../../../shared/ContentNavbar';
 import { startFetch, endFetch } from '../../../../actions/generalActions'
@@ -22,7 +23,10 @@ class PlayerStats extends Component {
 
   getGetTeamPlayerStats(teamPlayerId) {
     this.props.startFetch();
-    TeamPlayerService.doGetTeamPlayerStats(teamPlayerId)
+    const {
+      team
+    } = this.props;
+    TeamPlayerService.doGetTeamPlayerStats(team.id, teamPlayerId)
       .then((response) => {
         this.setState({teamPlayer: response.data});
       })
@@ -52,7 +56,8 @@ class PlayerStats extends Component {
           title={`${teamPlayer.player.first_name} Stats`}
           backLink={`/teams/${team.id}/players`}
         />
-        <GameStats teamPlayer={teamPlayer}/>
+        <GameStats teamPlayer={teamPlayer} />
+        <EvaluateForm team={team} teamPlayer={teamPlayer} getGetTeamPlayerStats={this.getGetTeamPlayerStats}/>
       </>
     )
   }
