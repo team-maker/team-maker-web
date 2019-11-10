@@ -11,7 +11,7 @@ class PointsAudit extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      points: []
+      teamGroupPlayer: undefined
     }
    }
 
@@ -19,14 +19,14 @@ class PointsAudit extends Component {
     const gameId = this.props.game.id;
     const teamId = this.props.team.id;
     const groupPlayerId = this.props.match.params.id;
-    this.doGetTeamGroupPlayers(teamId, gameId, groupPlayerId);
+    this.doGetTeamGroupPlayerWithPoints(teamId, gameId, groupPlayerId);
   }
 
-  doGetTeamGroupPlayers(teamId, gameId, groupPlayerId) {
+  doGetTeamGroupPlayerWithPoints(teamId, gameId, groupPlayerId) {
     this.props.startFetch();
     TeamGroupPlayerService.doGetTeamGroupPlayerPoints(teamId, gameId, groupPlayerId)
       .then((response) => {
-        this.setState({points: response.data});
+        this.setState({teamGroupPlayer: response.data});
       })
       .catch((error) => {
         cogoToast.error('ERROR', { position: 'bottom-left' });
@@ -36,17 +36,29 @@ class PointsAudit extends Component {
       })
   }
 
+  header(teamGroupPlayer) {
+    const player = teamGroupPlayer.team_player.player;
+    return `${player.first_name} ${player.last_name} - ${teamGroupPlayer.points_amount} Points`
+  }
+
   render() {
     const {
-      points
+      teamGroupPlayer
     } = this.state;
 
     const gameId = this.props.game.id;
     const teamId = this.props.team.id;
+
+    if (!teamGroupPlayer) {
+      return <></>
+    }
     return (
       <div className="player-points">
-        <Link className="back-link mb-4" to={`/teams/${teamId}/games/${gameId}/points`}>{'< Points'}</Link>
-        <Table points={points}/>
+        <div className="header">
+        <h4 className="m-0 font-weight-bold">{this.header(teamGroupPlayer)}</h4>
+          <Link className="back-link mb-4" to={`/teams/${teamId}/games/${gameId}/points`}>{'< Points Table'}</Link>
+        </div>
+        <Table points={teamGroupPlayer.points}/>
       </div>
     )
   }
