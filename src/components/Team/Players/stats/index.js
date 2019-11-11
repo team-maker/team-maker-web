@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import GameStats from './gameStats';
+import EvaluateForm from './evaluateForm';
 import { TeamPlayerService } from '../../../../services';
 import ContentNavbar from '../../../shared/ContentNavbar';
 import { startFetch, endFetch } from '../../../../actions/generalActions'
@@ -13,21 +14,48 @@ class PlayerStats extends Component {
     this.state = { 
       teamPlayer: undefined
     }
-   }
+  }
 
   componentDidMount() {
     const teamPlayerId = this.props.match.params.id;
-    this.getGetTeamPlayerStats(teamPlayerId);
+    this.getTeamPlayerStats(teamPlayerId);
   }
 
-  getGetTeamPlayerStats(teamPlayerId) {
+  getTeamPlayerStats(teamPlayerId) {
     this.props.startFetch();
-    TeamPlayerService.doGetTeamPlayerStats(teamPlayerId)
+    const {
+      team
+    } = this.props;
+    TeamPlayerService.doGetTeamPlayerStats(team.id, teamPlayerId)
       .then((response) => {
         this.setState({teamPlayer: response.data});
       })
       .catch((error) => {
         cogoToast.error('ERROR');
+      })
+      .finally(() => {
+        this.props.endFetch();
+      })
+  }
+
+  submitRating = (payload) =>  {
+    const {
+      team
+    } = this.props;
+    const teamPlayer = this.state.teamPlayer
+    this.props.startFetch();
+    TeamPlayerService.doEvaluateTeamPlayer(team.id, teamPlayer.id, payload)
+      .then((response) => {
+        cogoToast.success(`Thanks for evaluating ${teamPlayer.player.first_name}`);
+        this.getTeamPlayerStats(teamPlayer.id);
+      })
+      .catch((error) => {
+        if (error.response) {
+          cogoToast.error(error.response.data);
+        }
+        else {
+          cogoToast.error('Request Error');
+        }
       })
       .finally(() => {
         this.props.endFetch();
@@ -40,7 +68,8 @@ class PlayerStats extends Component {
     } = this.state;
 
     const {
-      team
+      team,
+      loggedInTeamPlayer
     } = this.props;
 
     if (teamPlayer === undefined) {
@@ -52,7 +81,11 @@ class PlayerStats extends Component {
           title={`${teamPlayer.player.first_name} Stats`}
           backLink={`/teams/${team.id}/players`}
         />
-        <GameStats teamPlayer={teamPlayer}/>
+        <GameStats teamPlayer={teamPlayer} />
+        {
+          teamPlayer.id !== loggedInTeamPlayer.id &&
+          <EvaluateForm teamPlayer={teamPlayer} submitRating={this.submitRating}/>
+        }
       </>
     )
   }

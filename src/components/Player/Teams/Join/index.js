@@ -68,7 +68,6 @@ class Join extends Component {
     if (!team) {
       return <></>
     }
-    console.log(team)
     return (
       <div className='content team-join'>
         <Container className="center">

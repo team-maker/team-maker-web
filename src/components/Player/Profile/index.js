@@ -64,7 +64,6 @@ class Profile extends Component {
       .finally(() => {
         this.props.endFetch();
       })
-    
   }
 
   render() {
