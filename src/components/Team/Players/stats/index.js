@@ -14,14 +14,14 @@ class PlayerStats extends Component {
     this.state = { 
       teamPlayer: undefined
     }
-   }
+  }
 
   componentDidMount() {
     const teamPlayerId = this.props.match.params.id;
-    this.getGetTeamPlayerStats(teamPlayerId);
+    this.getTeamPlayerStats(teamPlayerId);
   }
 
-  getGetTeamPlayerStats(teamPlayerId) {
+  getTeamPlayerStats(teamPlayerId) {
     this.props.startFetch();
     const {
       team
@@ -32,6 +32,31 @@ class PlayerStats extends Component {
       })
       .catch((error) => {
         cogoToast.error('ERROR');
+      })
+      .finally(() => {
+        this.props.endFetch();
+      })
+  }
+
+  submitRating = (payload) =>  {
+    const {
+      team,
+      teamPlayer
+    } = this.props;
+
+    this.props.startFetch();
+    TeamPlayerService.doEvaluateTeamPlayer(team.id, teamPlayer.id, teamPlayer.evaluation.id, payload)
+      .then((response) => {
+        cogoToast.success(`Thanks for evaluating ${teamPlayer.player.first_name}`);
+        this.getTeamPlayerStats(teamPlayer.id);
+      })
+      .catch((error) => {
+        if (error.response) {
+          cogoToast.error(error.response.data);
+        }
+        else {
+          cogoToast.error('Request Error');
+        }
       })
       .finally(() => {
         this.props.endFetch();
@@ -57,7 +82,7 @@ class PlayerStats extends Component {
           backLink={`/teams/${team.id}/players`}
         />
         <GameStats teamPlayer={teamPlayer} />
-        <EvaluateForm team={team} teamPlayer={teamPlayer} getGetTeamPlayerStats={this.getGetTeamPlayerStats}/>
+        <EvaluateForm teamPlayer={teamPlayer} submitRating={this.submitRating}/>
       </>
     )
   }

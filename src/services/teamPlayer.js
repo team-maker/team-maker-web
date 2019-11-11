@@ -9,8 +9,8 @@ export const TeamPlayerService = {
       url: url
     });
   },
-  doEvaluateTeamPlayer(teamId, teamPlayerId, payload) {
-    const url =`/api/teams/${teamId}/team-players/${teamPlayerId}/evaluate`;
+  doEvaluateTeamPlayer(teamId, teamPlayerId, evaluationId, payload) {
+    const url =`/api/teams/${teamId}/team-players/${teamPlayerId}/evaluate/${evaluationId}`;
     return axios({
       method: 'put',
       url: url,
