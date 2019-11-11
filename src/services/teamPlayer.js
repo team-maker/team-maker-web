@@ -11,7 +11,6 @@ export const TeamPlayerService = {
   },
   doEvaluateTeamPlayer(teamId, teamPlayerId, payload) {
     const url =`/api/teams/${teamId}/team-players/${teamPlayerId}/evaluate`;
-    console.log(url)
     return axios({
       method: 'put',
       url: url,
