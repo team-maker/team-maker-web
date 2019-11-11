@@ -125,7 +125,7 @@ class Team extends Component {
           <Switch>
             <PrivateRoute exact path={`${match.path}/dashboard`} component={Dashboard} team={team} teamPlayer={teamPlayer} />
             <PrivateRoute exact path={`${match.path}/players`} component={Player} team={team} teamPlayer={teamPlayer} />
-            <PrivateRoute exact path={`${match.path}/players/:id/stats`} component={PlayerStats} team={team} teamPlayer={teamPlayer} />
+            <PrivateRoute exact path={`${match.path}/players/:id/stats`} component={PlayerStats} team={team} loggedInTeamPlayer={teamPlayer} />
             <PrivateRoute exact path={`${match.path}/games/new`} component={GameNew} team={team} teamPlayer={teamPlayer} />
             <PrivateRoute exact path={`${match.path}/games`} component={Game} team={team} teamPlayer={teamPlayer} />
             <PrivateRoute path={`${match.path}/games/:game_id`} component={GameWrapper} team={team} teamPlayer={teamPlayer} />

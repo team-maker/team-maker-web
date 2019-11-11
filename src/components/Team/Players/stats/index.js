@@ -40,12 +40,11 @@ class PlayerStats extends Component {
 
   submitRating = (payload) =>  {
     const {
-      team,
-      teamPlayer
+      team
     } = this.props;
-
+    const teamPlayer = this.state.teamPlayer
     this.props.startFetch();
-    TeamPlayerService.doEvaluateTeamPlayer(team.id, teamPlayer.id, teamPlayer.evaluation.id, payload)
+    TeamPlayerService.doEvaluateTeamPlayer(team.id, teamPlayer.id, payload)
       .then((response) => {
         cogoToast.success(`Thanks for evaluating ${teamPlayer.player.first_name}`);
         this.getTeamPlayerStats(teamPlayer.id);
@@ -69,7 +68,8 @@ class PlayerStats extends Component {
     } = this.state;
 
     const {
-      team
+      team,
+      loggedInTeamPlayer
     } = this.props;
 
     if (teamPlayer === undefined) {
@@ -82,7 +82,10 @@ class PlayerStats extends Component {
           backLink={`/teams/${team.id}/players`}
         />
         <GameStats teamPlayer={teamPlayer} />
-        <EvaluateForm teamPlayer={teamPlayer} submitRating={this.submitRating}/>
+        {
+          teamPlayer.id !== loggedInTeamPlayer.id &&
+          <EvaluateForm teamPlayer={teamPlayer} submitRating={this.submitRating}/>
+        }
       </>
     )
   }
