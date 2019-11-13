@@ -94,7 +94,7 @@ class AvailablePlayers extends Component {
       <div className="player-points">
         {
           game.available_players_count >= 10 ? 
-          <Button variant="secondary mb-3" onClick={() => this.generateTeams()}>
+          <Button variant="ternary mb-3" onClick={() => this.generateTeams()}>
             Generate Teams
           </Button>
           :

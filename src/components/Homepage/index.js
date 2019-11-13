@@ -8,8 +8,7 @@ import { UserService, AuthenticationService } from '../../services';
 import LoginModal from '../LoginModal';
 import RegisterModal from '../RegisterModal';
 import { getGravatarImage } from '../../utils';
-import HomeNav from './HomeNav'
-import FacebookLoginButton from '../shared/FacebookLoginButton';
+import logo from '../../assets/images/logo.png';
 import cogoToast from 'cogo-toast';
 import './styles.scss';
 
@@ -49,13 +48,13 @@ class Homepage extends Component {
     .catch((error) => {
       switch (error.response.status) {
         case 400:
-          alert("Email/Password incorrectos");
+          cogoToast.error('Email/Password incorrectos', { position: 'top-center' });
           break;
         case 404:
-          alert("Utilizador não encontrado");
+          cogoToast.error('User not found', { position: 'top-center' });
           break;
         default: 
-          alert("Something went wrong");
+          cogoToast.error('Something Went Wrong', { position: 'top-center' });
       }
     })
   }
@@ -112,14 +111,18 @@ class Homepage extends Component {
     }
     return (
       <>
-        <HomeNav handleLoginShow={this.handleLoginShow} handleRegisterShow={this.handleRegisterShow} />
+        {/* <HomeNav handleLoginShow={this.handleLoginShow} handleRegisterShow={this.handleRegisterShow} /> */}
         <div className='homepage'>
-          <Container className='content mt-5'>
-            <h1 className="mb-3 homepage__title text-uppercase font-weight-bold">Join Your Friends and Create your own League!</h1>  
-            <Button className="btn-secondary mr-3" onClick={() => this.handleRegisterShow()}>
+          <Container className='content'>
+            <img alt='Team Maker logo' className="homepage__logo" src={logo} />
+            <h2 className="homepage__title text-uppercase font-weight-bold">Join Your Friends and Create your own League!</h2>  
+            <Button variant="ternary" className="homepage__button mt-3" onClick={() => this.handleLoginShow()}>
+              Login
+            </Button>
+            <br/>
+            <Button variant="ternary" className="homepage__button mt-3" onClick={() => this.handleRegisterShow()}>
               Register
             </Button>
-            <FacebookLoginButton history={this.props.history}/>
           </Container>
         </div>
         <LoginModal 
