@@ -1,18 +1,18 @@
 .btn {
-  font-size: 20px;
   border-radius: 3px;
+  font-size: 20px;
+
+  &:hover {
+    opacity: .8;
+    text-decoration: none;
+  }
 
   &.btn-primary {
     background-color: $color-primary;
     border-color: $color-primary;
     color: white;
-    padding: 5px 15px;
     font-size: 20px;
-
-    &:hover {
-      opacity: .9;
-      text-decoration: none;
-    }
+    padding: 5px 15px;
   }
 
   &.btn-secondary {
@@ -21,10 +21,12 @@
     color: white;
     font-weight: bold;
     padding: 10px;
+  }
 
-    &:hover {
-      opacity: .9;
-      text-decoration: none;
-    }
+  &.btn-ternary {
+    background: $color-secondary;
+    color: white;
+    font-weight: bold;
+    padding: 5px 20px;
   }
 }
