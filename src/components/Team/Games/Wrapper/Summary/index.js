@@ -134,7 +134,7 @@ class Summary extends Component {
           !game.finished &&
           <div className="actions py-4">
             <div className="actions__wrapper actions__wrapper--home">
-              <Button variant="secondary" className="font-weight-bold" onClick={() => this.handleOpenHomeTeamGoal()}>
+              <Button variant="ternary" className="font-weight-bold" onClick={() => this.handleOpenHomeTeamGoal()}>
                 + Home Goal
               </Button>
               <GoalSelector 
@@ -160,7 +160,7 @@ class Summary extends Component {
               </OverlayTrigger>
             </div>
             <div className="actions__wrapper actions__wrapper--away">
-              <Button variant="secondary" className="font-weight-bold" onClick={() => this.handleOpenAwayTeamGoal()}>
+              <Button variant="ternary" className="font-weight-bold" onClick={() => this.handleOpenAwayTeamGoal()}>
                 + Away Goal
               </Button>
               <GoalSelector 

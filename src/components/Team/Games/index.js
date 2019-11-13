@@ -52,7 +52,7 @@ class Game extends Component {
         />
         <div className="content games">
           <div className="btn-wrapper">
-            <Link className="btn btn-secondary mb-3" to={`/teams/${team.id}/games/new`}>
+            <Link className="btn btn-ternary mb-3" to={`/teams/${team.id}/games/new`}>
               + New Game
             </Link>
           </div>

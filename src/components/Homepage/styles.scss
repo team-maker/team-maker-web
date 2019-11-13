@@ -2,17 +2,32 @@
 
 .homepage {
   @include background-cover;
-  background-image: url("../../assets/images/background-images/homepage-2.jpg");
-  height: calc(100vh - #{$nav-height});
-  margin-top: $nav-height;
+  background-image: url('../../assets/images/background-images/homepage-2.jpg');
   display: flex;
   flex-direction: column;
+  height: 100vh;
   justify-content: center;
 
+  .content {
+    text-align: center;
+  }
+
   &__title {
+    margin-bottom: 40px;
+
     @include respond-up-to(small) {
       font-size: 2rem;
     }
+  }
+
+  &__logo {
+    height: 170px;
+    margin-bottom: 50px;
+  }
+
+  &__button {
+    min-width: 200px;
+    padding: 15px;
   }
 
 }

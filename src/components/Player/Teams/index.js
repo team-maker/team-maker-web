@@ -87,7 +87,7 @@ class Teams extends Component {
         <Container>
           <Card>
             <Card.Body className="text-center">
-              <h3 className="font-weight-bold mb-5">Join Team:</h3>
+              <h3 className="font-weight-bold mb-5">Join Team</h3>
               <Form className="form mb-4" onSubmit={this.JoinTeamSubmit}>
                 <CustomInput
                   name="token"
@@ -95,7 +95,7 @@ class Teams extends Component {
                   required={true}
                   label="Token"
                 />
-                <Button className="primary font-weight-bold" type="submit">
+                <Button className="btn-ternary font-weight-bold" type="submit">
                   Join
                 </Button>
               </Form>
