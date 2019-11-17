@@ -7,6 +7,11 @@
   transition: all .5s ease-in-out;
   width: 350px;
 
+  @include respond-up-to(medium) {
+    width: 100%;
+    min-height: 300px;
+  }
+
   &.team {
     &:hover {
       transform: scale(1.05);

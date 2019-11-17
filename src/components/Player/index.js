@@ -10,7 +10,13 @@ import Profile from './Profile'
 import './styles.scss';
 
 class Player extends Component {
-  
+  constructor(props) {
+    super(props);
+    this.state = {
+      toggled: true
+    };
+  }
+
   getSidebarLinks() {
     return [
       {
@@ -31,18 +37,34 @@ class Player extends Component {
     ]
   }
 
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize = e => {
+    const toggled = window.innerWidth >= 992;
+    this.setState({toggled: toggled});
+  };
+
   render() {
     const {
       user,
       match
     } = this.props;
 
+    const contentClass = this.state.toggled ? 'toggled' : '';
+
     if (!user) {
       return <></>
     }
     const links = this.getSidebarLinks();
     return (
-      <div className={`player content-wrapper toggled`}>
+      <div className={`player content-wrapper ${contentClass}`}>
         <Sidebar 
           user={user}
           links={links}
