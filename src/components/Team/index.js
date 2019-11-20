@@ -120,6 +120,7 @@ class Team extends Component {
           user={user}
           links={links}
           shortcutLinks={shortcutLinks}
+          toggled={true}
         />
         <div className="page-content">
           <Switch>

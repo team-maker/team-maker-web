@@ -48,7 +48,7 @@ class Player extends Component {
 
   handleResize = e => {
     const toggled = window.innerWidth >= 992;
-    this.setState({toggled: toggled});
+    this.setState({ toggled });
   };
 
   render() {
@@ -57,17 +57,19 @@ class Player extends Component {
       match
     } = this.props;
 
-    const contentClass = this.state.toggled ? 'toggled' : '';
+    const toggled = this.state.toggled;
+    const sidebarToogledClass = toggled ? 'toggled' : '';
 
     if (!user) {
       return <></>
     }
     const links = this.getSidebarLinks();
     return (
-      <div className={`player content-wrapper ${contentClass}`}>
+      <div className={`player content-wrapper ${sidebarToogledClass}`}>
         <Sidebar 
           user={user}
           links={links}
+          toggled={toggled}
         />
         <div className="page-content">
           <Switch>
