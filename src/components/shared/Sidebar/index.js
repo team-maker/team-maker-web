@@ -17,16 +17,13 @@ class Sidebar extends Component {
   render() {
     const {
       links,
-      user,
-      toggled
+      user
     } = this.props;
-
-    const sidebarVisibleClass = toggled ? 'visible' : '';
 
     const shortcutLinks = this.props.shortcutLinks || []
     const photo = getGravatarImage(user.email)
     return (
-      <nav id="sidebar" className={`sidebar-wrapper ${sidebarVisibleClass}`}>
+      <nav id="sidebar" className={`sidebar-wrapper visible`}>
         <div className="sidebar-content">
           <div className="sidebar-header mb-2">
             <div className="user-pic mb-1">
