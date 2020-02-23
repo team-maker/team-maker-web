@@ -1,11 +1,10 @@
-import axios from './interceptor';
+import axios from "./interceptor";
 
 export const GameService = {
-
   doGetTeamGames(teamId) {
     const url = `/api/teams/${teamId}/games`;
     return axios({
-      method: 'get',
+      method: "get",
       url: url
     });
   },
@@ -13,7 +12,7 @@ export const GameService = {
   doGetGame(teamId, gameId) {
     const url = `/api/teams/${teamId}/games/${gameId}`;
     return axios({
-      method: 'get',
+      method: "get",
       url: url
     });
   },
@@ -21,7 +20,7 @@ export const GameService = {
   doCreateGame(teamId, payload) {
     const url = `/api/teams/${teamId}/games`;
     return axios({
-      method: 'post',
+      method: "post",
       url: url,
       data: payload
     });
@@ -30,7 +29,15 @@ export const GameService = {
   doMarkGameFinished(teamId, gameId) {
     const url = `/api/teams/${teamId}/games/${gameId}/finish`;
     return axios({
-      method: 'put',
+      method: "put",
+      url: url
+    });
+  },
+
+  doRecalculateGamePoints(teamId, gameId) {
+    const url = `/api/teams/${teamId}/games/${gameId}/recalculate_points`;
+    return axios({
+      method: "put",
       url: url
     });
   },
@@ -38,7 +45,7 @@ export const GameService = {
   doGetGamePoints(teamId, gameId) {
     const url = `/api/teams/${teamId}/games/${gameId}/points`;
     return axios({
-      method: 'get',
+      method: "get",
       url: url
     });
   },
@@ -46,7 +53,7 @@ export const GameService = {
   doGetGameGoals(teamId, gameId) {
     const url = `/api/teams/${teamId}/games/${gameId}/goals`;
     return axios({
-      method: 'get',
+      method: "get",
       url: url
     });
   },
@@ -54,17 +61,16 @@ export const GameService = {
   doCreateGameGoal(teamId, gameId, payload) {
     const url = `/api/teams/${teamId}/games/${gameId}/goals`;
     return axios({
-      method: 'post',
+      method: "post",
       url: url,
       data: payload
     });
   },
 
-
   doGetGameAvailablePlayers(teamId, gameId) {
     const url = `/api/teams/${teamId}/games/${gameId}/available-players`;
     return axios({
-      method: 'get',
+      method: "get",
       url: url
     });
   },
@@ -72,7 +78,7 @@ export const GameService = {
   doUpdateAvailablePlayer(teamId, gameId, availablePlayerId, payload) {
     const url = `/api/teams/${teamId}/games/${gameId}/available-players/${availablePlayerId}`;
     return axios({
-      method: 'put',
+      method: "put",
       url: url,
       data: payload
     });
@@ -81,7 +87,7 @@ export const GameService = {
   doGenerateTeams(teamId, gameId) {
     const url = `/api/teams/${teamId}/games/${gameId}/generate_teams`;
     return axios({
-      method: 'post',
+      method: "post",
       url: url
     });
   }
