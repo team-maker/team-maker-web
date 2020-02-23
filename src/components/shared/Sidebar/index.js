@@ -23,7 +23,7 @@ class Sidebar extends Component {
     const shortcutLinks = this.props.shortcutLinks || []
     const photo = getGravatarImage(user.email)
     return (
-      <nav id="sidebar" className="sidebar-wrapper visible">
+      <nav id="sidebar" className={`sidebar-wrapper visible`}>
         <div className="sidebar-content">
           <div className="sidebar-header mb-2">
             <div className="user-pic mb-1">
