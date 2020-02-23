@@ -112,7 +112,12 @@ class Team extends Component {
     const shortcutLinks = this.getSidebarShortcutLinks();
     return (
       <div className={`player-team content-wrapper toggled`}>
-        <Sidebar user={user} links={links} shortcutLinks={shortcutLinks} />
+        <Sidebar
+          user={user}
+          links={links}
+          shortcutLinks={shortcutLinks}
+          toggled
+        />
         <div className="page-content">
           <Switch>
             <PrivateRoute

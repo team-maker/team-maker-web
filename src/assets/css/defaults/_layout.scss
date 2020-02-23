@@ -2,25 +2,21 @@
   &.content-wrapper {
     @include background-cover;
     @include background-color;
-    height: 100vh;
+    color: white;
     display: flex;
     flex-direction: column;
-    color: white;
-
-    &.toggled {
-      .sidebar-wrapper {
-        left: 0px;
-        top: 0px;
-      }
-
-      #show-sidebar {
-        left: -40px;
-      }
-    }
+    height: 100vh;
 
     $content-margin: calc(#{$sidebar-width} + 20px);
+
     .page-content {
       display: inline-block;
+      margin-left: $content-margin;
+      margin-right: 40px;
+      margin-top: $sidebar-padding-y;
+      overflow-x: hidden;
+      padding-bottom: 20px;
+      padding-left: 0;
       width: calc(100% - #{$content-margin} - 20px);
 
       @include respond-up-to(medium) {
@@ -32,6 +28,7 @@
       .content {
         background: rgba(0, 0, 0, 0.35);
         border-radius: 10px;
+        padding: 20px 40px;
       }
     }
   }
