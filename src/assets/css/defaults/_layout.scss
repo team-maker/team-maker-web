@@ -8,7 +8,7 @@
     height: 100vh;
 
     $content-margin: calc(#{$sidebar-width} + 20px);
-    
+
     .page-content {
       display: inline-block;
       margin-left: $content-margin;
@@ -20,13 +20,13 @@
       width: calc(100% - #{$content-margin} - 20px);
 
       @include respond-up-to(medium) {
-        margin-left: calc($sidebar-width + 10px);
+        margin-left: calc(#{$sidebar-width} + 10px);
         margin-top: 0;
         width: calc(100vw - #{$sidebar-width} - 20px);
       }
 
       .content {
-        background: rgba(0,0,0,0.35);
+        background: rgba(0, 0, 0, 0.35);
         border-radius: 10px;
         padding: 20px 40px;
       }
