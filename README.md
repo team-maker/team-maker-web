@@ -6,7 +6,7 @@
 
 Add `REACT_APP_API_URL={url}` to your .env.
 
-> {url} is your api base url, normally , http://locahost:8000
+> {url} is your api base url, normally , http://localhost:8000
 
 
 ## 3 - Run
